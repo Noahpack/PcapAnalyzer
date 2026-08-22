@@ -18,10 +18,14 @@ In this project, we are utilizing two different AI models for text generation an
 ## Main Branch: OpenAI
 
 - On the main branch, the project uses OpenAI's API to generate responses, explanations, and solutions. This integration allows the system to process network intrusion detection data and generate detailed reports based on the AI's analysis.
+- `pcap_formatted.py` on this branch imports `openai` and reads `OPENAI_API_KEY` from your `.env` file.
 
 ## Dev Branch: GEMINI (Google's Generative AI)
 
 - In the dev branch, we are using GEMINI, a generative AI model from Google, to handle the same tasks. GEMINI is used for analyzing network packets and generating explanations or security solutions based on the packet data. The dev branch allows you to test and compare the performance and accuracy of GEMINI against OpenAI.
+- `pcap_formatted.py` on this branch imports `google.generativeai` and reads `GEMINI_API_KEY` from your `.env` file.
+
+> IMPORTANT: `main` and `dev` are NOT meant to be merged together. They are two parallel implementations of the same tool, one per AI provider. Check out whichever branch matches the AI provider you want to use (`git checkout main` for OpenAI, `git checkout dev` for Gemini) and stay on it.
 
 ## Key Features:
 - Packet Inspection: Dive deep into network packets to examine headers, payloads, and other relevant information.
@@ -39,27 +43,6 @@ In this project, we are utilizing two different AI models for text generation an
 ## Getting Started:
 To get started, clone the repository and explore the documentation for detailed instructions on installing, configuring, and utilizing the tools provided by PcapAnalyzer.
 
-Get an account on OpenAI's GPT-3 API and add the API key to the code. You can get an account here: https://beta.openai.com/. You can also use the free version of the API.
-
-Get an account on GCLOUD and enable Gemini API and make sure you get a token to connect your script with this API. 
-
-
-## Installation:
-- Install Scapy: `pip install scapy`
-- Install OpenAI's API: `pip install openai`
-- Add the API key to the code.
-
-## Things to change in the code:
-- Change the path to the pcap file in the code.
-- Change the path to the output file in the code.
-- Change the path to the output directory in the code.
-- If your file is big and you want to extract the data from it, you can also change the number of packets to be read in the code if you want to analyze a specific number of packets. For example, if you want to analyze the first 20 packets, you can change the code to:
-
-```
-for packet in packets[:20]:
-        analyze_http_packet(packet, report_file)
-```
-
 ## Tools Included:
 - PacketInspector: A tool for in-depth inspection of individual network packets.
 
@@ -67,22 +50,75 @@ for packet in packets[:20]:
 
 - ExtractionWizard: Extract files, data, or metadata from pcap captures.
 
-# Getting the API Keys
+# Step-by-Step Setup Guide
+Follow these steps in order the first time you set up the project on your own machine.
 
-## OpenAI API Key
+## Step 1: Pick your branch (OpenAI vs. Gemini)
+This repo has two long-lived branches that each hold a complete, independent implementation:
+- `main` -> uses **OpenAI**. Check it out with `git checkout main`.
+- `dev` -> uses **Gemini**. Check it out with `git checkout dev`.
 
-- Visit OpenAI's website and create an account if you don't already have one.
-- After signing in, go to the API Keys page in your OpenAI dashboard.
-- Click on Create new secret key to generate your API key.
-- Save this key securely, and add it to your .env file with the variable name OPENAI_API_KEY.
+Do not mix them: pick one provider, check out the matching branch, and do all your work there.
 
-## GEMINI API Key
+## Step 2: Clone the repository
+```
+git clone <repo-url>
+cd PcapAnalyzer
+git checkout main   # or: git checkout dev
+```
 
-- Go to Google Cloud Console.
-- Create a new project or select an existing one.
-- Navigate to the API & Services section, and then to Credentials.
-- Create a new API key or use an existing one, and make sure to enable the Gemini API service.
-- Add the key to your .env file under the variable name GEMINI_API_KEY.
+## Step 3: Install dependencies
+- Install Scapy (used on both branches to parse pcap files): `pip install scapy`
+- Install `python-dotenv` (used on both branches to load your `.env` file): `pip install python-dotenv`
+- On `main` (OpenAI), also install: `pip install openai`
+- On `dev` (Gemini), also install: `pip install google-generativeai`
+
+## Step 4: Get API access and credits
+You only need to do the section for the provider matching the branch you checked out in Step 1.
+
+### OpenAI (for the `main` branch)
+1. Go to https://platform.openai.com/ and sign up or log in.
+2. Open the [Billing page](https://platform.openai.com/settings/organization/billing/overview) in your account settings and add a payment method, then purchase credits (OpenAI's chat completion API, including the `gpt-4` model used in this repo, requires paid credits/a positive balance — free trial credit is no longer reliably available for new accounts).
+3. Go to the [API Keys page](https://platform.openai.com/api-keys) and click **Create new secret key**.
+4. Copy the generated key immediately and store it somewhere safe — OpenAI will not show it to you again.
+5. Optionally set a usage limit/budget alert under Billing > Limits so you don't get an unexpectedly large bill.
+
+### Gemini (for the `dev` branch)
+1. Go to [Google AI Studio](https://aistudio.google.com/) and sign in with a Google account.
+2. Click **Get API key** > **Create API key**, and either create a new Google Cloud project or attach it to an existing one.
+3. Copy the generated key and store it somewhere safe.
+4. Gemini API usage is free up to a generous quota on the free tier. If you need higher rate limits/quota, go to the [Google Cloud Console](https://console.cloud.google.com/), select your project, enable billing under **Billing**, and enable the **Generative Language API** under **APIs & Services**.
+
+## Step 5: Create your `.env` file
+In the root of the repo, create a file named `.env` (it is already listed in `.gitignore`, so it will never be committed). Add only the line that matches your branch:
+```
+# main branch (OpenAI)
+OPENAI_API_KEY=your_openai_key_here
+
+# dev branch (Gemini)
+GEMINI_API_KEY=your_gemini_key_here
+```
+
+## Step 6: Folders and paths you need to change
+These folders/files are project-specific and must be updated to match your own machine before running anything:
+- `pcap_file/` — Put your own `.pcap` capture file(s) here. This is the input folder read by `pcap_scanner.py`, `breakdown_packets_scanner.py`, and `pcap_formatted.py`.
+- `Better_Outputs/` — This is where `pcap_formatted.py` writes its AI-generated reports. It's created automatically if missing, but you should still confirm the path.
+- `Examples_Outputs/` — Sample output for reference only; not required to run the tools.
+- Inside the code, update these hardcoded values to match your setup:
+  - `pcap_scanner.py` and `breakdown_packets_scanner.py`: update `pcap_file_path` (defaults to `./pcap_file/IT6300FE.pcap`) and `report_file_path` to point at your own capture file and desired report name.
+  - `pcap_formatted.py`: update `input_folder_path` and `output_folder_path` — these currently point at an absolute path (e.g. `/Users/alanharo/Documents/GitHub/PcapAnalyzer/...`) that only works on the original author's machine. Change them to your own repo location, or to relative paths like `"./pcap_file"` and `"./Better_Outputs"`.
+  - If your pcap file is large, you can change how many packets are analyzed by editing the slice in the packet loop, e.g.:
+    ```
+    for packet in packets[:20]:
+            analyze_http_packet(packet, report_file)
+    ```
+
+## Step 7: Run the tools
+```
+python pcap_scanner.py             # basic IP/protocol report
+python breakdown_packets_scanner.py  # detailed HTTP request report
+python pcap_formatted.py           # AI-generated report (needs your .env API key set up above)
+```
 
 # Contributing:
 Contributions to PcapAnalyzer are welcome! Feel free to submit bug reports, feature requests, or even pull requests to enhance the functionality of this pcap analysis toolkit.
