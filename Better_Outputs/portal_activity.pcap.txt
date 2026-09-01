@@ -1,0 +1,1621 @@
+======================================================================
+PCAP ANALYSIS REPORT: portal_activity.pcap
+Generated: 2026-09-01 12:21:33
+======================================================================
+
+OVERVIEW
+- Total packets analyzed: 1464
+- Unique source IPs: 10.30.8.10, 10.30.9.101, 10.30.9.102, 10.30.9.103, 10.30.9.104, 10.30.9.105, 10.30.9.106, 10.30.9.107, 10.30.9.108, 10.30.9.109, 10.30.9.110, 10.30.9.111, 10.30.9.112, 10.30.9.113, 10.30.9.114, 10.30.9.115, 10.30.9.116, 10.30.9.117, 10.30.9.118
+- Unique destination IPs: 10.30.8.10, 10.30.9.101, 10.30.9.102, 10.30.9.103, 10.30.9.104, 10.30.9.105, 10.30.9.106, 10.30.9.107, 10.30.9.108, 10.30.9.109, 10.30.9.110, 10.30.9.111, 10.30.9.112, 10.30.9.113, 10.30.9.114, 10.30.9.115, 10.30.9.116, 10.30.9.117, 10.30.9.118
+- Protocol breakdown: {'TCP': 1125, 'HTTP POST': 94, 'HTTP GET': 245}
+- HTTP requests detected: 339
+- Suspicious findings (SQLi/credentials): 20
+
+EXECUTIVE SUMMARY (AI-Generated)
+Executive Summary:
+
+The pcap analysis report reveals a total of 1464 packets analyzed, with a significant number of unique source and destination IPs within the same subnet. The protocol breakdown shows a majority of TCP packets, with HTTP POST and GET requests also present. A total of 339 HTTP requests were detected, with 20 instances of suspicious findings, potentially involving SQL injection or credential exposure. The preliminary findings indicate potential security risks, including plaintext transmission of user credentials, potential IP spoofing, and possible session hijacking. However, a large portion of the traffic appears to be normal internal communication, with standard HTTP GET and POST requests to expected endpoints.
+
+Recommendations:
+
+- Implement secure transmission protocols: The plaintext transmission of user credentials poses a significant security risk. Implementing secure transmission protocols such as HTTPS can help mitigate this risk.
+- Monitor for IP spoofing: The sudden change in source IP could indicate potential IP spoofing. Regular monitoring and alerting for such changes can help detect and prevent unauthorized access.
+- Investigate potential session hijacking: The significant time gap between logout and login actions could indicate potential session hijacking. Further investigation is recommended to rule out this possibility.
+- Review frequency of POST requests: The unusual frequency of POST requests to /api/v1/timesheet/submit could indicate potential automation or a malfunctioning client. This should be reviewed to ensure it aligns with expected usage patterns.
+- Enhance monitoring for SQL injection: While no signs of SQL injection were detected in this analysis, the presence of suspicious findings suggests the need for enhanced monitoring and prevention measures for SQL injection attacks.
+
+DETAILED FINDINGS (AI-Generated, per packet-range chunk)
+[Packets chunk 1/40]
+- Packet #4: Potential credential exposure. User credentials (user=mwong, password=Wi***) are sent in plaintext via HTTP POST request from 10.30.9.101 to 10.30.8.10 at 2026-08-24 03:00:00. This is a security risk as anyone intercepting the traffic can see the credentials.
+- No other anomalies or suspicious patterns detected in this segment of network traffic. No signs of SQL injection, unusual hosts or requests. All traffic is between known internal IPs, and all HTTP requests are for expected paths (/auth/login, /api/v1/notifications, /api/v1/timesheet, /api/v1/org/chart, /api/v1/tasks/update, /api/v1/tasks, /api/v1/timesheet/submit).
+
+[Packets chunk 2/40]
+- No anomalies or suspicious patterns are observed in the provided network traffic segment. 
+- All traffic is between two internal IPs (10.30.9.101 and 10.30.8.10) within the same subnet, suggesting normal internal communication.
+- The HTTP requests are standard GET and POST requests to expected endpoints such as "/api/v1/tasks/update", "/api/v1/directory/search", "/api/v1/timesheet", "/api/v1/helpdesk/tickets", and "/api/v1/messages/inbox".
+- The User-Agent string indicates a standard corporate workstation client.
+- All HTTP requests and responses have a normal status (200), indicating successful transactions.
+- No evidence of SQL injection, credential exposure, or unusual hosts/requests.
+
+[Packets chunk 3/40]
+- Packet #86: User credentials (user=rpatel, password=Bl***) are exposed in plaintext during an HTTP POST request for /auth/login. This is a major security concern as it can lead to unauthorized access.
+- The traffic between 10.30.9.101 and 10.30.8.10, and between 10.30.9.102 and 10.30.8.10, is not encrypted. This could potentially expose sensitive data to eavesdroppers.
+- There is a sudden change in source IP from 10.30.9.101 to 10.30.9.102 at packet #83. This could indicate a potential IP spoofing attack or a change in the client device.
+- No SQL injection, unusual hosts, or unusual requests are detected in this segment of network traffic.
+
+[Packets chunk 4/40]
+- Packet #148: Credentials (username and password) are exposed in plaintext during an HTTP POST request to /auth/login. This is a serious security risk as it allows potential attackers to intercept these credentials.
+- Packet #148: The source IP 10.30.9.103 is different from the previous source IP 10.30.9.102. This could be a potential IP spoofing attack or an unauthorized user trying to gain access to the system.
+- Packet #148: The timestamp shows a significant time gap (over 2 minutes) between the logout action from IP 10.30.9.102 and the login action from IP 10.30.9.103. This could indicate a potential session hijacking attempt.
+
+[Packets chunk 5/40]
+- The traffic between 10.30.9.103 and 10.30.8.10 seems to be normal, with standard HTTP GET and POST requests to the corporate portal.
+- No signs of SQL injection, as there are no unusual or malicious strings in the HTTP requests.
+- No credential exposure detected, as no usernames, passwords, or session tokens are visible in the packet capture.
+- The frequency of POST requests to /api/v1/timesheet/submit is slightly unusual (#156, #164, #168), suggesting potential automation or a malfunctioning client.
+- All requests are made with the same User-Agent, indicating they likely come from the same type of client software.
+- No unusual hosts are involved; all traffic is between two internal IP addresses.
+- All requests are responded to with a TCP Status 200, indicating successful requests with no server-side errors.
+
+[Packets chunk 6/40]
+- No anomalies or suspicious patterns are observed in this segment of network traffic. 
+- All HTTP requests are either GET or POST, which are standard HTTP methods. 
+- The source IP 10.30.9.103 is consistently communicating with the destination IP 10.30.8.10, suggesting a normal client-server interaction.
+- The User-Agent string indicates a standard corporate workstation, suggesting legitimate traffic.
+- The status codes for all requests are 200, indicating successful requests.
+- There are no signs of SQL injection or credential exposure in the provided data.
+- The presence of cookies in each request is normal for maintaining session state between the client and server.
+- The time intervals between requests are consistent, suggesting automated or routine traffic rather than irregular or malicious activity.
+
+[Packets chunk 7/40]
+- Packet #250: Credential exposure detected. The login credentials (username: egarcia, password: partially obscured) are transmitted in plaintext. This is a serious security risk as anyone with access to the network traffic can obtain these credentials.
+- Packet #250: Unusual login activity from IP 10.30.9.104 at 03:18:22, shortly after a logout from IP 10.30.9.103 at 03:16:34. This could indicate account sharing or a potential unauthorized access.
+- No signs of SQL injection or unusual hosts detected in this segment of network traffic.
+
+[Packets chunk 8/40]
+- No anomalies or suspicious patterns are observed in the provided network traffic. 
+- All HTTP requests are either GET or POST, which are normal for web browsing and data submission respectively. 
+- The source IP (10.30.9.104) is consistently communicating with the same destination IP (10.30.8.10), indicating no unusual host interactions.
+- The User-Agent string indicates a standard browser (Mozilla/5.0) and a corporate portal client, which is expected in a corporate network environment.
+- The presence of cookies in each request suggests an authenticated session, which is normal for user interactions with a web portal.
+- All TCP responses have a status of 200, indicating successful requests with no server errors.
+- There are no signs of potential attacks such as SQL injection or credential exposure in the provided traffic.
+
+[Packets chunk 9/40]
+- Packet #324: User credentials (username and password) for user 'tnguyen' are exposed in plaintext, indicating a potential security vulnerability. The communication should be encrypted to prevent credential exposure.
+- The traffic between 10.30.9.104 and 10.30.8.10, and between 10.30.9.105 and 10.30.8.10, is consistent and does not show signs of common attacks such as SQL injection or unusual requests.
+- The timestamps indicate that the requests are made at regular intervals, which is typical for automated processes or bots. This is not necessarily suspicious but should be verified to ensure it aligns with expected network behavior.
+
+[Packets chunk 10/40]
+- No anomalies or suspicious patterns are observed in this segment of network traffic. 
+- All traffic is between two internal IPs (10.30.9.105 and 10.30.8.10) within the same subnet, indicating normal internal network communication.
+- The HTTP requests are all standard GET and POST requests to expected endpoints (e.g., /api/v1/timesheet, /api/v1/tasks/update, /api/v1/profile, etc.) and are returning successful 200 status codes.
+- The User-Agent string is consistent across all requests, suggesting they are from the same client.
+- No signs of potential attacks such as SQL injection or credential exposure are evident in this segment.
+
+[Packets chunk 11/40]
+- Packet #402: Credential exposure detected. User credentials (user=lmartin, password=Gr***) were transmitted in plaintext over HTTP POST request to /auth/login endpoint from host 10.30.9.106 to 10.30.8.10 at timestamp 2026-08-24 03:28:17. This is a severe security risk as it exposes sensitive user data.
+- No other anomalies, suspicious patterns, or potential attacks such as SQL injection or unusual hosts/requests were detected in this segment of network traffic.
+
+[Packets chunk 12/40]
+- No anomalies or suspicious patterns are evident in the provided network traffic segment. 
+- All HTTP requests are made to valid endpoints on the internal corporate portal (portal.corp.local) from a single internal IP (10.30.9.106). 
+- The User-Agent string indicates a standard corporate workstation client, suggesting legitimate use. 
+- There is no evidence of SQL injection or other attack patterns, and no credentials are exposed in the traffic. 
+- All requests receive a successful (200) response, indicating normal operation. 
+- The presence of cookies suggests an authenticated session, but without further details, it's impossible to determine if this is unusual.
+
+[Packets chunk 13/40]
+- The traffic between 10.30.9.106 and 10.30.8.10 appears to be normal HTTP traffic, with the client at 10.30.9.106 making POST and GET requests to the server at 10.30.8.10, and the server responding with status 200, indicating successful requests.
+- The client is using a user-agent string that identifies it as a corporate workstation, which is consistent with the internal IP addresses being used.
+- The client is also sending cookies with each request, suggesting that it is maintaining a session with the server.
+- There is a gap in the timestamps between packets #478 and #481, suggesting that the client at 10.30.9.106 ended its session and a new client at 10.30.9.107 started a new session.
+- No obvious signs of SQL injection, credential exposure, or unusual hosts or requests are present in this traffic.
+
+[Packets chunk 14/40]
+- Packet #484: Credential exposure detected. User credentials (user=dkim, password=Pi***) were transmitted in plaintext via HTTP POST request from 10.30.9.107 to 10.30.8.10 at 2026-08-24 03:35:24.
+- No other anomalies, suspicious patterns, or potential attacks such as SQL injection or unusual hosts/requests were detected in this segment of network traffic. All traffic appears to be between known internal hosts (10.30.9.107 and 10.30.8.10) and involves expected protocols (HTTP, TCP) and operations (POST, GET).
+
+[Packets chunk 15/40]
+- Packet #546: Credential exposure detected. User credentials (username: avargas, password: partially masked) were found in plain text during an HTTP POST request to /auth/login. This is a serious security risk as it exposes sensitive user information.
+- Packet #546: The HTTP POST request to /auth/login from IP 10.30.9.108 is suspicious. The previous user (IP 10.30.9.107) logged out just two minutes prior (Packet #536). This could indicate a potential session hijacking attempt.
+- The traffic between 10.30.9.107 and 10.30.8.10, and between 10.30.9.108 and 10.30.8.10, is consistent and does not show signs of SQL injection or unusual requests. However, the exposed credentials in packet #546 need immediate attention.
+
+[Packets chunk 16/40]
+- No suspicious patterns or anomalies detected in this segment of network traffic.
+- All HTTP requests are to expected endpoints (timesheet, calendar, notifications, org chart, tasks, profile) on the internal corporate portal.
+- All requests are from the same internal IP (10.30.9.108) and User-Agent, suggesting a single user's normal activity.
+- All requests receive a successful (200) response.
+- No signs of SQL injection, credential exposure, or unusual hosts/requests.
+
+[Packets chunk 17/40]
+- No anomalies or suspicious patterns are observed in the provided network traffic segment. 
+- All traffic is between two internal IP addresses (10.30.9.108 and 10.30.8.10), suggesting normal internal communication.
+- The HTTP requests are standard (GET and POST) and are accessing typical resources such as directory, messages, settings, timesheet, dashboard, helpdesk tickets, tasks, and calendar events.
+- The User-Agent string indicates a standard corporate workstation browser.
+- All requests are responded to with a standard TCP 200 status, indicating successful transactions.
+- There is no evidence of potential attacks such as SQL injection or credential exposure.
+
+[Packets chunk 18/40]
+- Packet #640 and #644: Credentials (username and password) are exposed in plaintext in HTTP POST requests from 10.30.9.109 to 10.30.8.10. This is a serious security issue as it allows anyone intercepting the traffic to gain unauthorized access.
+- Packet #644: Multiple login attempts from the same IP (10.30.9.109) could indicate a brute force attack. The first attempt was unsuccessful (Status: 401), but the second attempt was successful (Status: 200).
+- No unusual hosts, SQL injection, or other suspicious patterns detected in this segment.
+
+[Packets chunk 19/40]
+- No anomalies or suspicious patterns are detected in this segment of network traffic. 
+- All HTTP requests are made from the same client (10.30.9.109) to the same server (10.30.8.10) using the same user agent (Mozilla/5.0 (corp workstation) CorpPortalClient/4.1).
+- All requests are for valid API endpoints (/api/v1/org/chart, /api/v1/profile, /api/v1/calendar/events, /api/v1/notifications, /api/v1/timesheet, /api/v1/tasks, /api/v1/tasks/update) on the same host (portal.corp.local).
+- All requests and responses follow the expected TCP handshake pattern, and all HTTP responses have a status of 200, indicating successful requests.
+- No evidence of potential attacks such as SQL injection or credential exposure is present in this traffic segment.
+
+[Packets chunk 20/40]
+- Packet #730: Credential exposure detected. The user's login credentials (user=bwilson, password=Co***) are transmitted in plaintext, which is a serious security risk. The timestamp for this event is 2026-08-24 03:52:40.
+- No other anomalies, suspicious patterns, or potential attacks such as SQL injection, unusual hosts, or requests are observed in this segment of network traffic. All HTTP requests are standard (GET/POST), and all responses are successful (Status: 200). The hosts involved (10.30.9.109, 10.30.8.10, 10.30.9.110) do not appear unusual.
+
+NOTE: 20 additional packet chunk(s) were not sent to OpenAI to stay within rate limits; see Packet-Level Data below for full detail.
+
+PACKET-LEVEL DATA
+#1 2026-08-24 03:00:00 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#2 2026-08-24 03:00:00 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#3 2026-08-24 03:00:00 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#4 2026-08-24 03:00:00 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=mwong, password=Wi***)
+#5 2026-08-24 03:00:00 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#6 2026-08-24 03:00:00 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#7 2026-08-24 03:00:00 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#8 2026-08-24 03:00:00 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#9 2026-08-24 03:00:00 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#10 2026-08-24 03:00:00 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#11 2026-08-24 03:00:00 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#12 2026-08-24 03:00:08 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#13 2026-08-24 03:00:08 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#14 2026-08-24 03:00:08 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#15 2026-08-24 03:00:08 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#16 2026-08-24 03:00:13 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#17 2026-08-24 03:00:13 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#18 2026-08-24 03:00:13 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#19 2026-08-24 03:00:13 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#20 2026-08-24 03:00:19 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#21 2026-08-24 03:00:19 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#22 2026-08-24 03:00:19 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#23 2026-08-24 03:00:19 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#24 2026-08-24 03:00:24 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#25 2026-08-24 03:00:24 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#26 2026-08-24 03:00:25 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#27 2026-08-24 03:00:25 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#28 2026-08-24 03:00:42 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#29 2026-08-24 03:00:42 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#30 2026-08-24 03:00:42 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#31 2026-08-24 03:00:42 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#32 2026-08-24 03:00:56 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#33 2026-08-24 03:00:56 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#34 2026-08-24 03:00:56 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#35 2026-08-24 03:00:56 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#36 2026-08-24 03:01:15 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#37 2026-08-24 03:01:15 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#38 2026-08-24 03:01:15 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#39 2026-08-24 03:01:15 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#40 2026-08-24 03:01:28 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#41 2026-08-24 03:01:28 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#42 2026-08-24 03:01:28 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#43 2026-08-24 03:01:28 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#44 2026-08-24 03:01:41 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#45 2026-08-24 03:01:41 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#46 2026-08-24 03:01:41 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#47 2026-08-24 03:01:41 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#48 2026-08-24 03:01:58 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#49 2026-08-24 03:01:58 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#50 2026-08-24 03:01:58 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#51 2026-08-24 03:01:58 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#52 2026-08-24 03:02:10 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#53 2026-08-24 03:02:10 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#54 2026-08-24 03:02:10 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#55 2026-08-24 03:02:10 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#56 2026-08-24 03:02:24 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#57 2026-08-24 03:02:24 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#58 2026-08-24 03:02:24 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#59 2026-08-24 03:02:24 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#60 2026-08-24 03:02:43 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#61 2026-08-24 03:02:43 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#62 2026-08-24 03:02:43 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#63 2026-08-24 03:02:43 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#64 2026-08-24 03:03:03 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#65 2026-08-24 03:03:03 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#66 2026-08-24 03:03:03 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#67 2026-08-24 03:03:03 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#68 2026-08-24 03:03:19 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#69 2026-08-24 03:03:19 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#70 2026-08-24 03:03:19 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#71 2026-08-24 03:03:19 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#72 2026-08-24 03:03:22 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#73 2026-08-24 03:03:22 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#74 2026-08-24 03:03:22 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#75 2026-08-24 03:03:22 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#76 2026-08-24 03:03:42 | 10.30.9.101 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#77 2026-08-24 03:03:42 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#78 2026-08-24 03:03:42 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP | Status: 200
+#79 2026-08-24 03:03:42 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#80 2026-08-24 03:03:42 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#81 2026-08-24 03:03:42 | 10.30.8.10 -> 10.30.9.101 | Protocol: TCP
+#82 2026-08-24 03:03:42 | 10.30.9.101 -> 10.30.8.10 | Protocol: TCP
+#83 2026-08-24 03:07:24 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#84 2026-08-24 03:07:24 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#85 2026-08-24 03:07:24 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#86 2026-08-24 03:07:24 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=rpatel, password=Bl***)
+#87 2026-08-24 03:07:24 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#88 2026-08-24 03:07:25 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#89 2026-08-24 03:07:25 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#90 2026-08-24 03:07:25 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#91 2026-08-24 03:07:25 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#92 2026-08-24 03:07:25 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#93 2026-08-24 03:07:25 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#94 2026-08-24 03:07:41 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#95 2026-08-24 03:07:41 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#96 2026-08-24 03:07:41 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#97 2026-08-24 03:07:41 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#98 2026-08-24 03:07:54 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#99 2026-08-24 03:07:54 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#100 2026-08-24 03:07:54 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#101 2026-08-24 03:07:54 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#102 2026-08-24 03:08:04 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#103 2026-08-24 03:08:04 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#104 2026-08-24 03:08:04 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#105 2026-08-24 03:08:04 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#106 2026-08-24 03:08:21 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#107 2026-08-24 03:08:21 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#108 2026-08-24 03:08:21 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#109 2026-08-24 03:08:21 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#110 2026-08-24 03:08:33 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#111 2026-08-24 03:08:33 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#112 2026-08-24 03:08:33 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#113 2026-08-24 03:08:33 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#114 2026-08-24 03:08:49 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#115 2026-08-24 03:08:49 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#116 2026-08-24 03:08:49 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#117 2026-08-24 03:08:49 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#118 2026-08-24 03:09:01 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#119 2026-08-24 03:09:01 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#120 2026-08-24 03:09:01 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#121 2026-08-24 03:09:01 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#122 2026-08-24 03:09:15 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#123 2026-08-24 03:09:15 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#124 2026-08-24 03:09:15 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#125 2026-08-24 03:09:15 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#126 2026-08-24 03:09:32 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#127 2026-08-24 03:09:32 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#128 2026-08-24 03:09:32 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#129 2026-08-24 03:09:32 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#130 2026-08-24 03:09:38 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#131 2026-08-24 03:09:38 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#132 2026-08-24 03:09:38 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#133 2026-08-24 03:09:38 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#134 2026-08-24 03:09:58 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#135 2026-08-24 03:09:58 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#136 2026-08-24 03:09:58 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#137 2026-08-24 03:09:58 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#138 2026-08-24 03:10:10 | 10.30.9.102 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#139 2026-08-24 03:10:10 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#140 2026-08-24 03:10:10 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP | Status: 200
+#141 2026-08-24 03:10:10 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#142 2026-08-24 03:10:10 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#143 2026-08-24 03:10:10 | 10.30.8.10 -> 10.30.9.102 | Protocol: TCP
+#144 2026-08-24 03:10:10 | 10.30.9.102 -> 10.30.8.10 | Protocol: TCP
+#145 2026-08-24 03:12:45 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#146 2026-08-24 03:12:45 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#147 2026-08-24 03:12:45 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#148 2026-08-24 03:12:45 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=ksato, password=Tu***)
+#149 2026-08-24 03:12:45 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#150 2026-08-24 03:12:45 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#151 2026-08-24 03:12:45 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#152 2026-08-24 03:12:45 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#153 2026-08-24 03:12:45 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#154 2026-08-24 03:12:45 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#155 2026-08-24 03:12:45 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#156 2026-08-24 03:13:00 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#157 2026-08-24 03:13:00 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#158 2026-08-24 03:13:00 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#159 2026-08-24 03:13:00 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#160 2026-08-24 03:13:19 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#161 2026-08-24 03:13:19 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#162 2026-08-24 03:13:19 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#163 2026-08-24 03:13:19 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#164 2026-08-24 03:13:38 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#165 2026-08-24 03:13:38 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#166 2026-08-24 03:13:38 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#167 2026-08-24 03:13:38 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#168 2026-08-24 03:13:46 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#169 2026-08-24 03:13:46 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#170 2026-08-24 03:13:46 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#171 2026-08-24 03:13:46 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#172 2026-08-24 03:13:49 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#173 2026-08-24 03:13:49 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#174 2026-08-24 03:13:49 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#175 2026-08-24 03:13:49 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#176 2026-08-24 03:13:59 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#177 2026-08-24 03:13:59 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#178 2026-08-24 03:13:59 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#179 2026-08-24 03:13:59 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#180 2026-08-24 03:14:11 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#181 2026-08-24 03:14:11 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#182 2026-08-24 03:14:11 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#183 2026-08-24 03:14:11 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#184 2026-08-24 03:14:18 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#185 2026-08-24 03:14:18 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#186 2026-08-24 03:14:18 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#187 2026-08-24 03:14:18 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#188 2026-08-24 03:14:21 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#189 2026-08-24 03:14:21 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#190 2026-08-24 03:14:21 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#191 2026-08-24 03:14:21 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#192 2026-08-24 03:14:26 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#193 2026-08-24 03:14:26 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#194 2026-08-24 03:14:26 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#195 2026-08-24 03:14:26 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#196 2026-08-24 03:14:34 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#197 2026-08-24 03:14:34 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#198 2026-08-24 03:14:35 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#199 2026-08-24 03:14:35 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#200 2026-08-24 03:14:49 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#201 2026-08-24 03:14:49 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#202 2026-08-24 03:14:50 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#203 2026-08-24 03:14:50 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#204 2026-08-24 03:15:08 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#205 2026-08-24 03:15:08 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#206 2026-08-24 03:15:08 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#207 2026-08-24 03:15:08 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#208 2026-08-24 03:15:11 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#209 2026-08-24 03:15:11 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#210 2026-08-24 03:15:11 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#211 2026-08-24 03:15:11 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#212 2026-08-24 03:15:18 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#213 2026-08-24 03:15:18 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#214 2026-08-24 03:15:18 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#215 2026-08-24 03:15:18 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#216 2026-08-24 03:15:38 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#217 2026-08-24 03:15:38 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#218 2026-08-24 03:15:38 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#219 2026-08-24 03:15:38 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#220 2026-08-24 03:15:41 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#221 2026-08-24 03:15:41 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#222 2026-08-24 03:15:41 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#223 2026-08-24 03:15:41 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#224 2026-08-24 03:15:52 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#225 2026-08-24 03:15:52 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#226 2026-08-24 03:15:52 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#227 2026-08-24 03:15:52 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#228 2026-08-24 03:16:01 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#229 2026-08-24 03:16:01 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#230 2026-08-24 03:16:01 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#231 2026-08-24 03:16:01 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#232 2026-08-24 03:16:06 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#233 2026-08-24 03:16:07 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#234 2026-08-24 03:16:07 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#235 2026-08-24 03:16:07 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#236 2026-08-24 03:16:20 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#237 2026-08-24 03:16:21 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#238 2026-08-24 03:16:21 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#239 2026-08-24 03:16:21 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#240 2026-08-24 03:16:34 | 10.30.9.103 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#241 2026-08-24 03:16:34 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#242 2026-08-24 03:16:34 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP | Status: 200
+#243 2026-08-24 03:16:34 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#244 2026-08-24 03:16:34 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#245 2026-08-24 03:16:34 | 10.30.8.10 -> 10.30.9.103 | Protocol: TCP
+#246 2026-08-24 03:16:34 | 10.30.9.103 -> 10.30.8.10 | Protocol: TCP
+#247 2026-08-24 03:18:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#248 2026-08-24 03:18:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#249 2026-08-24 03:18:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#250 2026-08-24 03:18:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=egarcia, password=Co***)
+#251 2026-08-24 03:18:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#252 2026-08-24 03:18:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#253 2026-08-24 03:18:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#254 2026-08-24 03:18:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#255 2026-08-24 03:18:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#256 2026-08-24 03:18:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#257 2026-08-24 03:18:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#258 2026-08-24 03:18:38 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#259 2026-08-24 03:18:38 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#260 2026-08-24 03:18:38 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#261 2026-08-24 03:18:38 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#262 2026-08-24 03:18:51 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#263 2026-08-24 03:18:52 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#264 2026-08-24 03:18:52 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#265 2026-08-24 03:18:52 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#266 2026-08-24 03:19:01 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#267 2026-08-24 03:19:01 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#268 2026-08-24 03:19:01 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#269 2026-08-24 03:19:01 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#270 2026-08-24 03:19:06 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#271 2026-08-24 03:19:06 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#272 2026-08-24 03:19:06 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#273 2026-08-24 03:19:06 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#274 2026-08-24 03:19:17 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#275 2026-08-24 03:19:17 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#276 2026-08-24 03:19:17 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#277 2026-08-24 03:19:17 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#278 2026-08-24 03:19:32 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#279 2026-08-24 03:19:32 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#280 2026-08-24 03:19:32 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#281 2026-08-24 03:19:32 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#282 2026-08-24 03:19:40 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#283 2026-08-24 03:19:40 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#284 2026-08-24 03:19:40 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#285 2026-08-24 03:19:40 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#286 2026-08-24 03:19:42 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#287 2026-08-24 03:19:42 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#288 2026-08-24 03:19:42 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#289 2026-08-24 03:19:42 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#290 2026-08-24 03:19:55 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#291 2026-08-24 03:19:55 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#292 2026-08-24 03:19:55 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#293 2026-08-24 03:19:55 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#294 2026-08-24 03:20:09 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#295 2026-08-24 03:20:09 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#296 2026-08-24 03:20:09 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#297 2026-08-24 03:20:09 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#298 2026-08-24 03:20:17 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#299 2026-08-24 03:20:17 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#300 2026-08-24 03:20:17 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#301 2026-08-24 03:20:17 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#302 2026-08-24 03:20:36 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#303 2026-08-24 03:20:36 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#304 2026-08-24 03:20:36 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#305 2026-08-24 03:20:36 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#306 2026-08-24 03:20:48 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#307 2026-08-24 03:20:48 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#308 2026-08-24 03:20:48 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#309 2026-08-24 03:20:48 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#310 2026-08-24 03:21:04 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#311 2026-08-24 03:21:04 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#312 2026-08-24 03:21:04 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#313 2026-08-24 03:21:04 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#314 2026-08-24 03:21:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#315 2026-08-24 03:21:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#316 2026-08-24 03:21:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP | Status: 200
+#317 2026-08-24 03:21:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#318 2026-08-24 03:21:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#319 2026-08-24 03:21:22 | 10.30.8.10 -> 10.30.9.104 | Protocol: TCP
+#320 2026-08-24 03:21:22 | 10.30.9.104 -> 10.30.8.10 | Protocol: TCP
+#321 2026-08-24 03:23:03 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#322 2026-08-24 03:23:03 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#323 2026-08-24 03:23:03 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#324 2026-08-24 03:23:03 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=tnguyen, password=Ha***)
+#325 2026-08-24 03:23:03 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#326 2026-08-24 03:23:03 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#327 2026-08-24 03:23:03 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#328 2026-08-24 03:23:03 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#329 2026-08-24 03:23:03 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#330 2026-08-24 03:23:03 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#331 2026-08-24 03:23:03 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#332 2026-08-24 03:23:05 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#333 2026-08-24 03:23:05 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#334 2026-08-24 03:23:05 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#335 2026-08-24 03:23:05 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#336 2026-08-24 03:23:09 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#337 2026-08-24 03:23:09 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#338 2026-08-24 03:23:09 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#339 2026-08-24 03:23:09 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#340 2026-08-24 03:23:28 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#341 2026-08-24 03:23:28 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#342 2026-08-24 03:23:28 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#343 2026-08-24 03:23:28 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#344 2026-08-24 03:23:39 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#345 2026-08-24 03:23:39 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#346 2026-08-24 03:23:39 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#347 2026-08-24 03:23:39 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#348 2026-08-24 03:23:56 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#349 2026-08-24 03:23:56 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#350 2026-08-24 03:23:56 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#351 2026-08-24 03:23:56 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#352 2026-08-24 03:24:14 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#353 2026-08-24 03:24:14 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#354 2026-08-24 03:24:14 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#355 2026-08-24 03:24:14 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#356 2026-08-24 03:24:34 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#357 2026-08-24 03:24:34 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#358 2026-08-24 03:24:34 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#359 2026-08-24 03:24:34 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#360 2026-08-24 03:24:37 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#361 2026-08-24 03:24:37 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#362 2026-08-24 03:24:37 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#363 2026-08-24 03:24:37 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#364 2026-08-24 03:24:56 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#365 2026-08-24 03:24:56 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#366 2026-08-24 03:24:56 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#367 2026-08-24 03:24:56 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#368 2026-08-24 03:25:09 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#369 2026-08-24 03:25:09 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#370 2026-08-24 03:25:09 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#371 2026-08-24 03:25:09 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#372 2026-08-24 03:25:15 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#373 2026-08-24 03:25:15 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#374 2026-08-24 03:25:15 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#375 2026-08-24 03:25:15 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#376 2026-08-24 03:25:25 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#377 2026-08-24 03:25:25 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#378 2026-08-24 03:25:25 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#379 2026-08-24 03:25:25 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#380 2026-08-24 03:25:39 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#381 2026-08-24 03:25:39 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#382 2026-08-24 03:25:39 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#383 2026-08-24 03:25:39 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#384 2026-08-24 03:25:47 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#385 2026-08-24 03:25:47 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#386 2026-08-24 03:25:47 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#387 2026-08-24 03:25:47 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#388 2026-08-24 03:25:58 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#389 2026-08-24 03:25:58 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#390 2026-08-24 03:25:58 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#391 2026-08-24 03:25:58 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#392 2026-08-24 03:26:13 | 10.30.9.105 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#393 2026-08-24 03:26:13 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#394 2026-08-24 03:26:13 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP | Status: 200
+#395 2026-08-24 03:26:13 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#396 2026-08-24 03:26:13 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#397 2026-08-24 03:26:13 | 10.30.8.10 -> 10.30.9.105 | Protocol: TCP
+#398 2026-08-24 03:26:13 | 10.30.9.105 -> 10.30.8.10 | Protocol: TCP
+#399 2026-08-24 03:28:17 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#400 2026-08-24 03:28:17 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#401 2026-08-24 03:28:17 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#402 2026-08-24 03:28:17 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=lmartin, password=Gr***)
+#403 2026-08-24 03:28:17 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#404 2026-08-24 03:28:17 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#405 2026-08-24 03:28:17 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#406 2026-08-24 03:28:17 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#407 2026-08-24 03:28:17 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#408 2026-08-24 03:28:17 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#409 2026-08-24 03:28:17 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#410 2026-08-24 03:28:22 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#411 2026-08-24 03:28:22 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#412 2026-08-24 03:28:22 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#413 2026-08-24 03:28:22 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#414 2026-08-24 03:28:42 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#415 2026-08-24 03:28:42 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#416 2026-08-24 03:28:42 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#417 2026-08-24 03:28:42 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#418 2026-08-24 03:29:00 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#419 2026-08-24 03:29:00 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#420 2026-08-24 03:29:00 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#421 2026-08-24 03:29:00 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#422 2026-08-24 03:29:14 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#423 2026-08-24 03:29:14 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#424 2026-08-24 03:29:14 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#425 2026-08-24 03:29:14 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#426 2026-08-24 03:29:27 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#427 2026-08-24 03:29:27 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#428 2026-08-24 03:29:28 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#429 2026-08-24 03:29:28 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#430 2026-08-24 03:29:46 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#431 2026-08-24 03:29:46 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#432 2026-08-24 03:29:46 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#433 2026-08-24 03:29:46 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#434 2026-08-24 03:30:02 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#435 2026-08-24 03:30:02 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#436 2026-08-24 03:30:02 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#437 2026-08-24 03:30:02 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#438 2026-08-24 03:30:04 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#439 2026-08-24 03:30:04 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#440 2026-08-24 03:30:04 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#441 2026-08-24 03:30:04 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#442 2026-08-24 03:30:21 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#443 2026-08-24 03:30:21 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#444 2026-08-24 03:30:21 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#445 2026-08-24 03:30:21 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#446 2026-08-24 03:30:26 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#447 2026-08-24 03:30:26 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#448 2026-08-24 03:30:26 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#449 2026-08-24 03:30:26 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#450 2026-08-24 03:30:42 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#451 2026-08-24 03:30:42 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#452 2026-08-24 03:30:42 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#453 2026-08-24 03:30:42 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#454 2026-08-24 03:30:55 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#455 2026-08-24 03:30:55 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#456 2026-08-24 03:30:55 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#457 2026-08-24 03:30:55 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#458 2026-08-24 03:31:10 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#459 2026-08-24 03:31:10 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#460 2026-08-24 03:31:10 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#461 2026-08-24 03:31:10 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#462 2026-08-24 03:31:27 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#463 2026-08-24 03:31:27 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#464 2026-08-24 03:31:27 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#465 2026-08-24 03:31:27 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#466 2026-08-24 03:31:37 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#467 2026-08-24 03:31:37 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#468 2026-08-24 03:31:37 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#469 2026-08-24 03:31:37 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#470 2026-08-24 03:31:54 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#471 2026-08-24 03:31:54 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#472 2026-08-24 03:31:54 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#473 2026-08-24 03:31:54 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#474 2026-08-24 03:32:08 | 10.30.9.106 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#475 2026-08-24 03:32:08 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#476 2026-08-24 03:32:08 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP | Status: 200
+#477 2026-08-24 03:32:08 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#478 2026-08-24 03:32:08 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#479 2026-08-24 03:32:08 | 10.30.8.10 -> 10.30.9.106 | Protocol: TCP
+#480 2026-08-24 03:32:08 | 10.30.9.106 -> 10.30.8.10 | Protocol: TCP
+#481 2026-08-24 03:35:24 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#482 2026-08-24 03:35:24 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#483 2026-08-24 03:35:24 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#484 2026-08-24 03:35:24 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=dkim, password=Pi***)
+#485 2026-08-24 03:35:24 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#486 2026-08-24 03:35:24 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#487 2026-08-24 03:35:24 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#488 2026-08-24 03:35:24 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#489 2026-08-24 03:35:24 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#490 2026-08-24 03:35:24 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#491 2026-08-24 03:35:24 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#492 2026-08-24 03:35:42 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#493 2026-08-24 03:35:42 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#494 2026-08-24 03:35:42 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#495 2026-08-24 03:35:42 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#496 2026-08-24 03:35:47 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#497 2026-08-24 03:35:47 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#498 2026-08-24 03:35:47 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#499 2026-08-24 03:35:47 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#500 2026-08-24 03:35:52 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#501 2026-08-24 03:35:53 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#502 2026-08-24 03:35:53 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#503 2026-08-24 03:35:53 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#504 2026-08-24 03:35:56 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#505 2026-08-24 03:35:56 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#506 2026-08-24 03:35:56 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#507 2026-08-24 03:35:56 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#508 2026-08-24 03:36:08 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#509 2026-08-24 03:36:08 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#510 2026-08-24 03:36:08 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#511 2026-08-24 03:36:08 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#512 2026-08-24 03:36:27 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#513 2026-08-24 03:36:27 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#514 2026-08-24 03:36:27 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#515 2026-08-24 03:36:27 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#516 2026-08-24 03:36:39 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#517 2026-08-24 03:36:39 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#518 2026-08-24 03:36:39 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#519 2026-08-24 03:36:39 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#520 2026-08-24 03:36:46 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#521 2026-08-24 03:36:46 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#522 2026-08-24 03:36:46 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#523 2026-08-24 03:36:46 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#524 2026-08-24 03:37:05 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#525 2026-08-24 03:37:05 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#526 2026-08-24 03:37:05 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#527 2026-08-24 03:37:05 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#528 2026-08-24 03:37:08 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#529 2026-08-24 03:37:08 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#530 2026-08-24 03:37:08 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#531 2026-08-24 03:37:08 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#532 2026-08-24 03:37:14 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#533 2026-08-24 03:37:14 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#534 2026-08-24 03:37:14 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#535 2026-08-24 03:37:14 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#536 2026-08-24 03:37:30 | 10.30.9.107 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#537 2026-08-24 03:37:30 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#538 2026-08-24 03:37:30 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP | Status: 200
+#539 2026-08-24 03:37:30 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#540 2026-08-24 03:37:31 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#541 2026-08-24 03:37:31 | 10.30.8.10 -> 10.30.9.107 | Protocol: TCP
+#542 2026-08-24 03:37:31 | 10.30.9.107 -> 10.30.8.10 | Protocol: TCP
+#543 2026-08-24 03:39:30 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#544 2026-08-24 03:39:30 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#545 2026-08-24 03:39:30 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#546 2026-08-24 03:39:30 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=avargas, password=Su***)
+#547 2026-08-24 03:39:30 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#548 2026-08-24 03:39:30 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#549 2026-08-24 03:39:30 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#550 2026-08-24 03:39:30 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#551 2026-08-24 03:39:30 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#552 2026-08-24 03:39:30 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#553 2026-08-24 03:39:30 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#554 2026-08-24 03:39:42 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#555 2026-08-24 03:39:42 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#556 2026-08-24 03:39:42 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#557 2026-08-24 03:39:42 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#558 2026-08-24 03:39:46 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#559 2026-08-24 03:39:46 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#560 2026-08-24 03:39:46 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#561 2026-08-24 03:39:46 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#562 2026-08-24 03:40:00 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#563 2026-08-24 03:40:00 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#564 2026-08-24 03:40:00 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#565 2026-08-24 03:40:00 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#566 2026-08-24 03:40:09 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#567 2026-08-24 03:40:09 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#568 2026-08-24 03:40:10 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#569 2026-08-24 03:40:10 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#570 2026-08-24 03:40:17 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#571 2026-08-24 03:40:17 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#572 2026-08-24 03:40:17 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#573 2026-08-24 03:40:17 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#574 2026-08-24 03:40:29 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#575 2026-08-24 03:40:29 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#576 2026-08-24 03:40:29 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#577 2026-08-24 03:40:29 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#578 2026-08-24 03:40:36 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#579 2026-08-24 03:40:36 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#580 2026-08-24 03:40:36 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#581 2026-08-24 03:40:36 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#582 2026-08-24 03:40:51 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#583 2026-08-24 03:40:51 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#584 2026-08-24 03:40:51 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#585 2026-08-24 03:40:51 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#586 2026-08-24 03:40:53 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#587 2026-08-24 03:40:53 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#588 2026-08-24 03:40:53 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#589 2026-08-24 03:40:53 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#590 2026-08-24 03:41:11 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#591 2026-08-24 03:41:11 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#592 2026-08-24 03:41:11 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#593 2026-08-24 03:41:11 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#594 2026-08-24 03:41:18 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#595 2026-08-24 03:41:18 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#596 2026-08-24 03:41:18 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#597 2026-08-24 03:41:18 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#598 2026-08-24 03:41:27 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#599 2026-08-24 03:41:27 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#600 2026-08-24 03:41:27 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#601 2026-08-24 03:41:27 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#602 2026-08-24 03:41:43 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#603 2026-08-24 03:41:43 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#604 2026-08-24 03:41:43 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#605 2026-08-24 03:41:43 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#606 2026-08-24 03:41:51 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#607 2026-08-24 03:41:51 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#608 2026-08-24 03:41:51 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#609 2026-08-24 03:41:51 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#610 2026-08-24 03:42:07 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#611 2026-08-24 03:42:07 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#612 2026-08-24 03:42:07 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#613 2026-08-24 03:42:07 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#614 2026-08-24 03:42:10 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#615 2026-08-24 03:42:10 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#616 2026-08-24 03:42:10 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#617 2026-08-24 03:42:10 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#618 2026-08-24 03:42:26 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#619 2026-08-24 03:42:26 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#620 2026-08-24 03:42:26 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#621 2026-08-24 03:42:26 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#622 2026-08-24 03:42:29 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#623 2026-08-24 03:42:29 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#624 2026-08-24 03:42:29 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#625 2026-08-24 03:42:29 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#626 2026-08-24 03:42:45 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#627 2026-08-24 03:42:45 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#628 2026-08-24 03:42:45 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#629 2026-08-24 03:42:45 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#630 2026-08-24 03:43:01 | 10.30.9.108 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#631 2026-08-24 03:43:01 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#632 2026-08-24 03:43:02 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP | Status: 200
+#633 2026-08-24 03:43:02 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#634 2026-08-24 03:43:02 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#635 2026-08-24 03:43:02 | 10.30.8.10 -> 10.30.9.108 | Protocol: TCP
+#636 2026-08-24 03:43:02 | 10.30.9.108 -> 10.30.8.10 | Protocol: TCP
+#637 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#638 2026-08-24 03:45:54 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#639 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#640 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=csingh, password=Wr***)
+#641 2026-08-24 03:45:54 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#642 2026-08-24 03:45:54 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 401
+#643 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#644 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=csingh, password=Ni***)
+#645 2026-08-24 03:45:54 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#646 2026-08-24 03:45:54 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#647 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#648 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#649 2026-08-24 03:45:54 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#650 2026-08-24 03:45:54 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#651 2026-08-24 03:45:54 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#652 2026-08-24 03:46:12 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#653 2026-08-24 03:46:12 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#654 2026-08-24 03:46:12 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#655 2026-08-24 03:46:12 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#656 2026-08-24 03:46:30 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#657 2026-08-24 03:46:30 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#658 2026-08-24 03:46:30 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#659 2026-08-24 03:46:30 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#660 2026-08-24 03:46:49 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#661 2026-08-24 03:46:49 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#662 2026-08-24 03:46:49 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#663 2026-08-24 03:46:49 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#664 2026-08-24 03:47:00 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#665 2026-08-24 03:47:00 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#666 2026-08-24 03:47:00 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#667 2026-08-24 03:47:00 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#668 2026-08-24 03:47:10 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#669 2026-08-24 03:47:10 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#670 2026-08-24 03:47:10 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#671 2026-08-24 03:47:10 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#672 2026-08-24 03:47:20 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#673 2026-08-24 03:47:20 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#674 2026-08-24 03:47:20 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#675 2026-08-24 03:47:20 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#676 2026-08-24 03:47:39 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#677 2026-08-24 03:47:39 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#678 2026-08-24 03:47:39 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#679 2026-08-24 03:47:39 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#680 2026-08-24 03:47:51 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#681 2026-08-24 03:47:51 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#682 2026-08-24 03:47:51 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#683 2026-08-24 03:47:51 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#684 2026-08-24 03:47:59 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#685 2026-08-24 03:47:59 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#686 2026-08-24 03:47:59 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#687 2026-08-24 03:47:59 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#688 2026-08-24 03:48:14 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#689 2026-08-24 03:48:14 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#690 2026-08-24 03:48:14 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#691 2026-08-24 03:48:14 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#692 2026-08-24 03:48:28 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#693 2026-08-24 03:48:28 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#694 2026-08-24 03:48:28 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#695 2026-08-24 03:48:28 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#696 2026-08-24 03:48:35 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#697 2026-08-24 03:48:35 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#698 2026-08-24 03:48:35 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#699 2026-08-24 03:48:35 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#700 2026-08-24 03:48:55 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#701 2026-08-24 03:48:55 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#702 2026-08-24 03:48:55 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#703 2026-08-24 03:48:55 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#704 2026-08-24 03:49:13 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#705 2026-08-24 03:49:13 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#706 2026-08-24 03:49:13 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#707 2026-08-24 03:49:13 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#708 2026-08-24 03:49:22 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#709 2026-08-24 03:49:22 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#710 2026-08-24 03:49:22 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#711 2026-08-24 03:49:22 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#712 2026-08-24 03:49:42 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#713 2026-08-24 03:49:42 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#714 2026-08-24 03:49:42 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#715 2026-08-24 03:49:42 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#716 2026-08-24 03:49:44 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#717 2026-08-24 03:49:44 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#718 2026-08-24 03:49:44 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#719 2026-08-24 03:49:44 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#720 2026-08-24 03:49:53 | 10.30.9.109 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#721 2026-08-24 03:49:53 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#722 2026-08-24 03:49:53 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP | Status: 200
+#723 2026-08-24 03:49:53 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#724 2026-08-24 03:49:53 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#725 2026-08-24 03:49:53 | 10.30.8.10 -> 10.30.9.109 | Protocol: TCP
+#726 2026-08-24 03:49:53 | 10.30.9.109 -> 10.30.8.10 | Protocol: TCP
+#727 2026-08-24 03:52:40 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#728 2026-08-24 03:52:40 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#729 2026-08-24 03:52:40 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#730 2026-08-24 03:52:40 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=bwilson, password=Co***)
+#731 2026-08-24 03:52:40 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#732 2026-08-24 03:52:40 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#733 2026-08-24 03:52:40 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#734 2026-08-24 03:52:40 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#735 2026-08-24 03:52:40 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#736 2026-08-24 03:52:40 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#737 2026-08-24 03:52:40 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#738 2026-08-24 03:53:00 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#739 2026-08-24 03:53:00 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#740 2026-08-24 03:53:00 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#741 2026-08-24 03:53:00 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#742 2026-08-24 03:53:15 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#743 2026-08-24 03:53:15 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#744 2026-08-24 03:53:15 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#745 2026-08-24 03:53:15 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#746 2026-08-24 03:53:18 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#747 2026-08-24 03:53:18 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#748 2026-08-24 03:53:18 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#749 2026-08-24 03:53:18 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#750 2026-08-24 03:53:26 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#751 2026-08-24 03:53:26 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#752 2026-08-24 03:53:26 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#753 2026-08-24 03:53:26 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#754 2026-08-24 03:53:38 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#755 2026-08-24 03:53:38 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#756 2026-08-24 03:53:38 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#757 2026-08-24 03:53:38 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#758 2026-08-24 03:53:48 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#759 2026-08-24 03:53:48 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#760 2026-08-24 03:53:48 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#761 2026-08-24 03:53:48 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#762 2026-08-24 03:54:00 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#763 2026-08-24 03:54:00 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#764 2026-08-24 03:54:00 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#765 2026-08-24 03:54:00 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#766 2026-08-24 03:54:06 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#767 2026-08-24 03:54:06 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#768 2026-08-24 03:54:06 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#769 2026-08-24 03:54:06 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#770 2026-08-24 03:54:16 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#771 2026-08-24 03:54:16 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#772 2026-08-24 03:54:16 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#773 2026-08-24 03:54:16 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#774 2026-08-24 03:54:29 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#775 2026-08-24 03:54:29 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#776 2026-08-24 03:54:29 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#777 2026-08-24 03:54:29 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#778 2026-08-24 03:54:46 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#779 2026-08-24 03:54:46 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#780 2026-08-24 03:54:46 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#781 2026-08-24 03:54:46 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#782 2026-08-24 03:54:55 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#783 2026-08-24 03:54:55 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#784 2026-08-24 03:54:55 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#785 2026-08-24 03:54:55 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#786 2026-08-24 03:55:04 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#787 2026-08-24 03:55:04 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#788 2026-08-24 03:55:04 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#789 2026-08-24 03:55:04 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#790 2026-08-24 03:55:09 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#791 2026-08-24 03:55:09 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#792 2026-08-24 03:55:09 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#793 2026-08-24 03:55:09 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#794 2026-08-24 03:55:13 | 10.30.9.110 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#795 2026-08-24 03:55:13 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#796 2026-08-24 03:55:13 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP | Status: 200
+#797 2026-08-24 03:55:13 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#798 2026-08-24 03:55:13 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#799 2026-08-24 03:55:13 | 10.30.8.10 -> 10.30.9.110 | Protocol: TCP
+#800 2026-08-24 03:55:13 | 10.30.9.110 -> 10.30.8.10 | Protocol: TCP
+#801 2026-08-24 03:58:37 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#802 2026-08-24 03:58:37 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#803 2026-08-24 03:58:37 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#804 2026-08-24 03:58:37 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=opark, password=Ma***)
+#805 2026-08-24 03:58:37 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#806 2026-08-24 03:58:37 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#807 2026-08-24 03:58:38 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#808 2026-08-24 03:58:38 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#809 2026-08-24 03:58:38 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#810 2026-08-24 03:58:38 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#811 2026-08-24 03:58:38 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#812 2026-08-24 03:58:54 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#813 2026-08-24 03:58:54 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#814 2026-08-24 03:58:54 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#815 2026-08-24 03:58:54 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#816 2026-08-24 03:59:08 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#817 2026-08-24 03:59:08 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#818 2026-08-24 03:59:09 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#819 2026-08-24 03:59:09 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#820 2026-08-24 03:59:16 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#821 2026-08-24 03:59:16 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#822 2026-08-24 03:59:16 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#823 2026-08-24 03:59:16 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#824 2026-08-24 03:59:22 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#825 2026-08-24 03:59:23 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#826 2026-08-24 03:59:23 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#827 2026-08-24 03:59:23 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#828 2026-08-24 03:59:38 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#829 2026-08-24 03:59:38 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#830 2026-08-24 03:59:38 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#831 2026-08-24 03:59:38 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#832 2026-08-24 03:59:54 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#833 2026-08-24 03:59:54 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#834 2026-08-24 03:59:54 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#835 2026-08-24 03:59:54 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#836 2026-08-24 04:00:12 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#837 2026-08-24 04:00:12 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#838 2026-08-24 04:00:12 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#839 2026-08-24 04:00:12 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#840 2026-08-24 04:00:16 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#841 2026-08-24 04:00:16 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#842 2026-08-24 04:00:17 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#843 2026-08-24 04:00:17 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#844 2026-08-24 04:00:31 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#845 2026-08-24 04:00:31 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#846 2026-08-24 04:00:31 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#847 2026-08-24 04:00:31 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#848 2026-08-24 04:00:36 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#849 2026-08-24 04:00:36 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#850 2026-08-24 04:00:36 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#851 2026-08-24 04:00:36 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#852 2026-08-24 04:00:50 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#853 2026-08-24 04:00:50 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#854 2026-08-24 04:00:50 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#855 2026-08-24 04:00:50 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#856 2026-08-24 04:00:53 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#857 2026-08-24 04:00:53 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#858 2026-08-24 04:00:53 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#859 2026-08-24 04:00:53 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#860 2026-08-24 04:01:10 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#861 2026-08-24 04:01:10 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#862 2026-08-24 04:01:10 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#863 2026-08-24 04:01:10 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#864 2026-08-24 04:01:14 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#865 2026-08-24 04:01:14 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#866 2026-08-24 04:01:14 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#867 2026-08-24 04:01:14 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#868 2026-08-24 04:01:20 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#869 2026-08-24 04:01:20 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#870 2026-08-24 04:01:20 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#871 2026-08-24 04:01:20 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#872 2026-08-24 04:01:23 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#873 2026-08-24 04:01:23 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#874 2026-08-24 04:01:23 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#875 2026-08-24 04:01:23 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#876 2026-08-24 04:01:35 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#877 2026-08-24 04:01:35 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#878 2026-08-24 04:01:35 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#879 2026-08-24 04:01:35 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#880 2026-08-24 04:01:48 | 10.30.9.111 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#881 2026-08-24 04:01:48 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#882 2026-08-24 04:01:48 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP | Status: 200
+#883 2026-08-24 04:01:48 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#884 2026-08-24 04:01:48 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#885 2026-08-24 04:01:48 | 10.30.8.10 -> 10.30.9.111 | Protocol: TCP
+#886 2026-08-24 04:01:48 | 10.30.9.111 -> 10.30.8.10 | Protocol: TCP
+#887 2026-08-24 04:04:31 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#888 2026-08-24 04:04:31 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#889 2026-08-24 04:04:31 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#890 2026-08-24 04:04:31 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=ndupont, password=Em***)
+#891 2026-08-24 04:04:31 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#892 2026-08-24 04:04:31 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#893 2026-08-24 04:04:31 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#894 2026-08-24 04:04:31 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#895 2026-08-24 04:04:31 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#896 2026-08-24 04:04:31 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#897 2026-08-24 04:04:32 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#898 2026-08-24 04:04:39 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#899 2026-08-24 04:04:39 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#900 2026-08-24 04:04:39 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#901 2026-08-24 04:04:39 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#902 2026-08-24 04:04:47 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#903 2026-08-24 04:04:47 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#904 2026-08-24 04:04:47 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#905 2026-08-24 04:04:47 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#906 2026-08-24 04:04:55 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#907 2026-08-24 04:04:55 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#908 2026-08-24 04:04:55 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#909 2026-08-24 04:04:55 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#910 2026-08-24 04:04:58 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#911 2026-08-24 04:04:58 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#912 2026-08-24 04:04:58 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#913 2026-08-24 04:04:58 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#914 2026-08-24 04:05:07 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#915 2026-08-24 04:05:07 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#916 2026-08-24 04:05:07 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#917 2026-08-24 04:05:07 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#918 2026-08-24 04:05:16 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#919 2026-08-24 04:05:16 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#920 2026-08-24 04:05:16 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#921 2026-08-24 04:05:16 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#922 2026-08-24 04:05:19 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#923 2026-08-24 04:05:19 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#924 2026-08-24 04:05:20 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#925 2026-08-24 04:05:20 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#926 2026-08-24 04:05:38 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#927 2026-08-24 04:05:38 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#928 2026-08-24 04:05:38 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#929 2026-08-24 04:05:38 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#930 2026-08-24 04:05:54 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#931 2026-08-24 04:05:54 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#932 2026-08-24 04:05:54 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#933 2026-08-24 04:05:54 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#934 2026-08-24 04:06:01 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#935 2026-08-24 04:06:01 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#936 2026-08-24 04:06:01 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#937 2026-08-24 04:06:01 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#938 2026-08-24 04:06:08 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#939 2026-08-24 04:06:08 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#940 2026-08-24 04:06:08 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#941 2026-08-24 04:06:08 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#942 2026-08-24 04:06:26 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#943 2026-08-24 04:06:26 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#944 2026-08-24 04:06:26 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#945 2026-08-24 04:06:26 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#946 2026-08-24 04:06:44 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#947 2026-08-24 04:06:44 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#948 2026-08-24 04:06:44 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#949 2026-08-24 04:06:44 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#950 2026-08-24 04:06:47 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#951 2026-08-24 04:06:47 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#952 2026-08-24 04:06:47 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#953 2026-08-24 04:06:47 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#954 2026-08-24 04:06:52 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#955 2026-08-24 04:06:52 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#956 2026-08-24 04:06:52 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#957 2026-08-24 04:06:52 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#958 2026-08-24 04:07:03 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#959 2026-08-24 04:07:03 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#960 2026-08-24 04:07:03 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#961 2026-08-24 04:07:03 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#962 2026-08-24 04:07:14 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#963 2026-08-24 04:07:14 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#964 2026-08-24 04:07:14 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#965 2026-08-24 04:07:14 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#966 2026-08-24 04:07:30 | 10.30.9.112 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#967 2026-08-24 04:07:30 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#968 2026-08-24 04:07:30 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP | Status: 200
+#969 2026-08-24 04:07:30 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#970 2026-08-24 04:07:30 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#971 2026-08-24 04:07:30 | 10.30.8.10 -> 10.30.9.112 | Protocol: TCP
+#972 2026-08-24 04:07:30 | 10.30.9.112 -> 10.30.8.10 | Protocol: TCP
+#973 2026-08-24 04:09:32 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#974 2026-08-24 04:09:32 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#975 2026-08-24 04:09:32 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#976 2026-08-24 04:09:32 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=afinance, password=Le***)
+#977 2026-08-24 04:09:32 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#978 2026-08-24 04:09:33 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#979 2026-08-24 04:09:33 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#980 2026-08-24 04:09:33 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#981 2026-08-24 04:09:33 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#982 2026-08-24 04:09:33 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#983 2026-08-24 04:09:33 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#984 2026-08-24 04:09:39 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#985 2026-08-24 04:09:39 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#986 2026-08-24 04:09:39 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#987 2026-08-24 04:09:39 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#988 2026-08-24 04:09:52 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/reports/Q3_2026_Expense_Summary.xlsx | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#989 2026-08-24 04:09:52 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#990 2026-08-24 04:09:52 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#991 2026-08-24 04:09:52 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#992 2026-08-24 04:10:07 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#993 2026-08-24 04:10:07 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#994 2026-08-24 04:10:07 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#995 2026-08-24 04:10:07 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#996 2026-08-24 04:10:13 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#997 2026-08-24 04:10:13 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#998 2026-08-24 04:10:13 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#999 2026-08-24 04:10:13 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1000 2026-08-24 04:10:17 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1001 2026-08-24 04:10:17 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1002 2026-08-24 04:10:17 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1003 2026-08-24 04:10:17 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1004 2026-08-24 04:10:23 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/finance/reports/list | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1005 2026-08-24 04:10:23 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1006 2026-08-24 04:10:23 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1007 2026-08-24 04:10:23 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1008 2026-08-24 04:10:31 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1009 2026-08-24 04:10:31 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1010 2026-08-24 04:10:31 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1011 2026-08-24 04:10:31 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1012 2026-08-24 04:10:41 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/budget/FY2026_Budget_Forecast.xlsx | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1013 2026-08-24 04:10:41 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1014 2026-08-24 04:10:41 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1015 2026-08-24 04:10:41 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1016 2026-08-24 04:10:52 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1017 2026-08-24 04:10:52 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1018 2026-08-24 04:10:52 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1019 2026-08-24 04:10:52 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1020 2026-08-24 04:11:06 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1021 2026-08-24 04:11:06 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1022 2026-08-24 04:11:06 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1023 2026-08-24 04:11:06 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1024 2026-08-24 04:11:17 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1025 2026-08-24 04:11:17 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1026 2026-08-24 04:11:18 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1027 2026-08-24 04:11:18 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1028 2026-08-24 04:11:32 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1029 2026-08-24 04:11:32 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1030 2026-08-24 04:11:32 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1031 2026-08-24 04:11:32 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1032 2026-08-24 04:11:51 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1033 2026-08-24 04:11:51 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1034 2026-08-24 04:11:51 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1035 2026-08-24 04:11:51 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1036 2026-08-24 04:12:05 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1037 2026-08-24 04:12:05 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1038 2026-08-24 04:12:05 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1039 2026-08-24 04:12:05 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1040 2026-08-24 04:12:17 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/audit/Q3_2026_Internal_Audit.pdf | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1041 2026-08-24 04:12:17 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1042 2026-08-24 04:12:18 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1043 2026-08-24 04:12:18 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1044 2026-08-24 04:12:34 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/finance/payroll/export | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1045 2026-08-24 04:12:34 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1046 2026-08-24 04:12:34 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1047 2026-08-24 04:12:34 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1048 2026-08-24 04:12:41 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1049 2026-08-24 04:12:41 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1050 2026-08-24 04:12:41 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1051 2026-08-24 04:12:41 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1052 2026-08-24 04:12:50 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1053 2026-08-24 04:12:50 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1054 2026-08-24 04:12:50 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1055 2026-08-24 04:12:50 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1056 2026-08-24 04:12:59 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1057 2026-08-24 04:12:59 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1058 2026-08-24 04:13:00 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1059 2026-08-24 04:13:00 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1060 2026-08-24 04:13:11 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1061 2026-08-24 04:13:11 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1062 2026-08-24 04:13:11 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1063 2026-08-24 04:13:11 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1064 2026-08-24 04:13:27 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1065 2026-08-24 04:13:27 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1066 2026-08-24 04:13:27 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1067 2026-08-24 04:13:27 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1068 2026-08-24 04:13:31 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1069 2026-08-24 04:13:31 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1070 2026-08-24 04:13:31 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1071 2026-08-24 04:13:31 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1072 2026-08-24 04:13:50 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1073 2026-08-24 04:13:50 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1074 2026-08-24 04:13:50 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1075 2026-08-24 04:13:50 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1076 2026-08-24 04:13:56 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1077 2026-08-24 04:13:56 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1078 2026-08-24 04:13:56 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1079 2026-08-24 04:13:56 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1080 2026-08-24 04:14:01 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1081 2026-08-24 04:14:01 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1082 2026-08-24 04:14:01 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1083 2026-08-24 04:14:01 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1084 2026-08-24 04:14:16 | 10.30.9.113 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1085 2026-08-24 04:14:16 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1086 2026-08-24 04:14:16 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP | Status: 200
+#1087 2026-08-24 04:14:16 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1088 2026-08-24 04:14:16 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1089 2026-08-24 04:14:16 | 10.30.8.10 -> 10.30.9.113 | Protocol: TCP
+#1090 2026-08-24 04:14:16 | 10.30.9.113 -> 10.30.8.10 | Protocol: TCP
+#1091 2026-08-24 04:17:24 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1092 2026-08-24 04:17:24 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1093 2026-08-24 04:17:24 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1094 2026-08-24 04:17:24 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=bpayroll, password=Pa***)
+#1095 2026-08-24 04:17:24 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1096 2026-08-24 04:17:24 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1097 2026-08-24 04:17:24 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1098 2026-08-24 04:17:24 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1099 2026-08-24 04:17:24 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1100 2026-08-24 04:17:24 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1101 2026-08-24 04:17:24 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1102 2026-08-24 04:17:32 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1103 2026-08-24 04:17:32 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1104 2026-08-24 04:17:32 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1105 2026-08-24 04:17:32 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1106 2026-08-24 04:17:38 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1107 2026-08-24 04:17:38 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1108 2026-08-24 04:17:38 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1109 2026-08-24 04:17:38 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1110 2026-08-24 04:17:49 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1111 2026-08-24 04:17:49 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1112 2026-08-24 04:17:49 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1113 2026-08-24 04:17:49 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1114 2026-08-24 04:18:09 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/ledger/general_ledger_export.csv | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1115 2026-08-24 04:18:09 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1116 2026-08-24 04:18:09 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1117 2026-08-24 04:18:09 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1118 2026-08-24 04:18:19 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/reports/Q3_2026_Expense_Summary.xlsx | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1119 2026-08-24 04:18:19 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1120 2026-08-24 04:18:19 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1121 2026-08-24 04:18:19 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1122 2026-08-24 04:18:22 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1123 2026-08-24 04:18:23 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1124 2026-08-24 04:18:23 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1125 2026-08-24 04:18:23 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1126 2026-08-24 04:18:32 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1127 2026-08-24 04:18:32 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1128 2026-08-24 04:18:32 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1129 2026-08-24 04:18:32 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1130 2026-08-24 04:18:39 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1131 2026-08-24 04:18:39 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1132 2026-08-24 04:18:39 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1133 2026-08-24 04:18:39 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1134 2026-08-24 04:18:54 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/audit/Q3_2026_Internal_Audit.pdf | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1135 2026-08-24 04:18:55 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1136 2026-08-24 04:18:55 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1137 2026-08-24 04:18:55 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1138 2026-08-24 04:18:58 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1139 2026-08-24 04:18:58 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1140 2026-08-24 04:18:58 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1141 2026-08-24 04:18:58 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1142 2026-08-24 04:19:00 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1143 2026-08-24 04:19:00 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1144 2026-08-24 04:19:00 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1145 2026-08-24 04:19:00 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1146 2026-08-24 04:19:15 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/finance/payroll/export | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1147 2026-08-24 04:19:15 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1148 2026-08-24 04:19:15 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1149 2026-08-24 04:19:15 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1150 2026-08-24 04:19:21 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1151 2026-08-24 04:19:21 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1152 2026-08-24 04:19:21 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1153 2026-08-24 04:19:21 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1154 2026-08-24 04:19:28 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1155 2026-08-24 04:19:28 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1156 2026-08-24 04:19:28 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1157 2026-08-24 04:19:28 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1158 2026-08-24 04:19:41 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/budget/FY2026_Budget_Forecast.xlsx | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1159 2026-08-24 04:19:41 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1160 2026-08-24 04:19:41 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1161 2026-08-24 04:19:41 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1162 2026-08-24 04:19:49 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1163 2026-08-24 04:19:49 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1164 2026-08-24 04:19:49 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1165 2026-08-24 04:19:49 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1166 2026-08-24 04:19:59 | 10.30.9.114 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1167 2026-08-24 04:19:59 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1168 2026-08-24 04:19:59 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP | Status: 200
+#1169 2026-08-24 04:19:59 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1170 2026-08-24 04:19:59 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1171 2026-08-24 04:19:59 | 10.30.8.10 -> 10.30.9.114 | Protocol: TCP
+#1172 2026-08-24 04:19:59 | 10.30.9.114 -> 10.30.8.10 | Protocol: TCP
+#1173 2026-08-24 04:21:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1174 2026-08-24 04:21:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1175 2026-08-24 04:21:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1176 2026-08-24 04:21:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=qadams, password=Vo***)
+#1177 2026-08-24 04:21:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1178 2026-08-24 04:21:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1179 2026-08-24 04:21:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1180 2026-08-24 04:21:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1181 2026-08-24 04:21:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1182 2026-08-24 04:21:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1183 2026-08-24 04:21:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1184 2026-08-24 04:21:25 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1185 2026-08-24 04:21:25 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1186 2026-08-24 04:21:25 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1187 2026-08-24 04:21:25 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1188 2026-08-24 04:21:32 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1189 2026-08-24 04:21:32 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1190 2026-08-24 04:21:32 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1191 2026-08-24 04:21:32 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1192 2026-08-24 04:21:42 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1193 2026-08-24 04:21:42 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1194 2026-08-24 04:21:42 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1195 2026-08-24 04:21:42 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1196 2026-08-24 04:21:54 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1197 2026-08-24 04:21:54 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1198 2026-08-24 04:21:54 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1199 2026-08-24 04:21:54 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1200 2026-08-24 04:21:56 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1201 2026-08-24 04:21:56 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1202 2026-08-24 04:21:56 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1203 2026-08-24 04:21:56 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1204 2026-08-24 04:22:11 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1205 2026-08-24 04:22:11 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1206 2026-08-24 04:22:11 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1207 2026-08-24 04:22:11 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1208 2026-08-24 04:22:18 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1209 2026-08-24 04:22:18 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1210 2026-08-24 04:22:18 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1211 2026-08-24 04:22:19 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1212 2026-08-24 04:22:29 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1213 2026-08-24 04:22:29 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1214 2026-08-24 04:22:29 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1215 2026-08-24 04:22:29 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1216 2026-08-24 04:22:42 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1217 2026-08-24 04:22:42 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1218 2026-08-24 04:22:42 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1219 2026-08-24 04:22:42 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1220 2026-08-24 04:22:54 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1221 2026-08-24 04:22:54 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1222 2026-08-24 04:22:54 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1223 2026-08-24 04:22:55 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1224 2026-08-24 04:23:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1225 2026-08-24 04:23:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1226 2026-08-24 04:23:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1227 2026-08-24 04:23:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1228 2026-08-24 04:23:25 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1229 2026-08-24 04:23:25 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1230 2026-08-24 04:23:25 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1231 2026-08-24 04:23:25 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1232 2026-08-24 04:23:42 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1233 2026-08-24 04:23:42 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1234 2026-08-24 04:23:42 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1235 2026-08-24 04:23:42 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1236 2026-08-24 04:24:01 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1237 2026-08-24 04:24:01 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1238 2026-08-24 04:24:01 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1239 2026-08-24 04:24:01 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1240 2026-08-24 04:24:14 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1241 2026-08-24 04:24:14 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1242 2026-08-24 04:24:14 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1243 2026-08-24 04:24:14 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1244 2026-08-24 04:24:26 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1245 2026-08-24 04:24:26 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1246 2026-08-24 04:24:26 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1247 2026-08-24 04:24:26 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1248 2026-08-24 04:24:37 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1249 2026-08-24 04:24:37 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1250 2026-08-24 04:24:37 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1251 2026-08-24 04:24:37 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1252 2026-08-24 04:24:52 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1253 2026-08-24 04:24:52 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1254 2026-08-24 04:24:52 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1255 2026-08-24 04:24:52 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1256 2026-08-24 04:24:59 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1257 2026-08-24 04:24:59 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1258 2026-08-24 04:25:00 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1259 2026-08-24 04:25:00 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1260 2026-08-24 04:25:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1261 2026-08-24 04:25:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1262 2026-08-24 04:25:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP | Status: 200
+#1263 2026-08-24 04:25:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1264 2026-08-24 04:25:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1265 2026-08-24 04:25:12 | 10.30.8.10 -> 10.30.9.115 | Protocol: TCP
+#1266 2026-08-24 04:25:12 | 10.30.9.115 -> 10.30.8.10 | Protocol: TCP
+#1267 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1268 2026-08-24 04:28:52 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1269 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1270 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=hyoung, password=Wr***)
+#1271 2026-08-24 04:28:52 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1272 2026-08-24 04:28:52 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 401
+#1273 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1274 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=hyoung, password=Qu***)
+#1275 2026-08-24 04:28:52 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1276 2026-08-24 04:28:52 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1277 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1278 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1279 2026-08-24 04:28:52 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1280 2026-08-24 04:28:52 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1281 2026-08-24 04:28:52 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1282 2026-08-24 04:29:08 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/messages/inbox | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1283 2026-08-24 04:29:08 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1284 2026-08-24 04:29:08 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1285 2026-08-24 04:29:08 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1286 2026-08-24 04:29:27 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1287 2026-08-24 04:29:27 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1288 2026-08-24 04:29:27 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1289 2026-08-24 04:29:27 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1290 2026-08-24 04:29:33 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1291 2026-08-24 04:29:33 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1292 2026-08-24 04:29:33 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1293 2026-08-24 04:29:33 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1294 2026-08-24 04:29:40 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1295 2026-08-24 04:29:40 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1296 2026-08-24 04:29:40 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1297 2026-08-24 04:29:40 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1298 2026-08-24 04:29:54 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1299 2026-08-24 04:29:54 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1300 2026-08-24 04:29:54 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1301 2026-08-24 04:29:54 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1302 2026-08-24 04:30:12 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1303 2026-08-24 04:30:12 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1304 2026-08-24 04:30:12 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1305 2026-08-24 04:30:12 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1306 2026-08-24 04:30:30 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1307 2026-08-24 04:30:30 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1308 2026-08-24 04:30:30 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1309 2026-08-24 04:30:30 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1310 2026-08-24 04:30:34 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1311 2026-08-24 04:30:34 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1312 2026-08-24 04:30:34 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1313 2026-08-24 04:30:34 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1314 2026-08-24 04:30:42 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1315 2026-08-24 04:30:42 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1316 2026-08-24 04:30:42 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1317 2026-08-24 04:30:42 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1318 2026-08-24 04:30:55 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1319 2026-08-24 04:30:55 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1320 2026-08-24 04:30:55 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1321 2026-08-24 04:30:55 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1322 2026-08-24 04:31:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1323 2026-08-24 04:31:07 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1324 2026-08-24 04:31:07 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1325 2026-08-24 04:31:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1326 2026-08-24 04:31:12 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1327 2026-08-24 04:31:12 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1328 2026-08-24 04:31:12 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1329 2026-08-24 04:31:12 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1330 2026-08-24 04:31:26 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1331 2026-08-24 04:31:26 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1332 2026-08-24 04:31:26 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1333 2026-08-24 04:31:26 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1334 2026-08-24 04:31:45 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1335 2026-08-24 04:31:45 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1336 2026-08-24 04:31:45 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1337 2026-08-24 04:31:45 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1338 2026-08-24 04:31:50 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1339 2026-08-24 04:31:50 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1340 2026-08-24 04:31:50 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1341 2026-08-24 04:31:50 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1342 2026-08-24 04:32:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1343 2026-08-24 04:32:07 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1344 2026-08-24 04:32:07 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1345 2026-08-24 04:32:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1346 2026-08-24 04:32:19 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/timesheet | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1347 2026-08-24 04:32:19 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1348 2026-08-24 04:32:19 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1349 2026-08-24 04:32:19 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1350 2026-08-24 04:32:29 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1351 2026-08-24 04:32:29 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1352 2026-08-24 04:32:29 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1353 2026-08-24 04:32:29 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1354 2026-08-24 04:32:49 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1355 2026-08-24 04:32:49 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1356 2026-08-24 04:32:49 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1357 2026-08-24 04:32:49 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1358 2026-08-24 04:33:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1359 2026-08-24 04:33:07 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1360 2026-08-24 04:33:07 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP | Status: 200
+#1361 2026-08-24 04:33:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1362 2026-08-24 04:33:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1363 2026-08-24 04:33:07 | 10.30.8.10 -> 10.30.9.116 | Protocol: TCP
+#1364 2026-08-24 04:33:07 | 10.30.9.116 -> 10.30.8.10 | Protocol: TCP
+#1365 2026-08-24 04:36:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1366 2026-08-24 04:36:44 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1367 2026-08-24 04:36:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1368 2026-08-24 04:36:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=jrivera, password=An***)
+#1369 2026-08-24 04:36:44 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1370 2026-08-24 04:36:44 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1371 2026-08-24 04:36:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1372 2026-08-24 04:36:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/helpdesk/tickets | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1373 2026-08-24 04:36:44 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1374 2026-08-24 04:36:44 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1375 2026-08-24 04:36:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1376 2026-08-24 04:36:47 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1377 2026-08-24 04:36:47 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1378 2026-08-24 04:36:47 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1379 2026-08-24 04:36:47 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1380 2026-08-24 04:36:51 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/profile | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1381 2026-08-24 04:36:51 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1382 2026-08-24 04:36:51 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1383 2026-08-24 04:36:51 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1384 2026-08-24 04:37:02 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/tasks/update | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1385 2026-08-24 04:37:02 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1386 2026-08-24 04:37:02 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1387 2026-08-24 04:37:02 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1388 2026-08-24 04:37:19 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/calendar/events | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1389 2026-08-24 04:37:19 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1390 2026-08-24 04:37:19 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1391 2026-08-24 04:37:19 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1392 2026-08-24 04:37:24 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/settings | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1393 2026-08-24 04:37:24 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1394 2026-08-24 04:37:24 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1395 2026-08-24 04:37:24 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1396 2026-08-24 04:37:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/timesheet/submit | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1397 2026-08-24 04:37:44 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1398 2026-08-24 04:37:44 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1399 2026-08-24 04:37:44 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1400 2026-08-24 04:37:56 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1401 2026-08-24 04:37:56 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1402 2026-08-24 04:37:56 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1403 2026-08-24 04:37:56 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1404 2026-08-24 04:38:16 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/directory/search?q=employee | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1405 2026-08-24 04:38:16 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1406 2026-08-24 04:38:16 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1407 2026-08-24 04:38:16 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1408 2026-08-24 04:38:23 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/tasks | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1409 2026-08-24 04:38:23 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1410 2026-08-24 04:38:23 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1411 2026-08-24 04:38:23 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1412 2026-08-24 04:38:34 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/org/chart | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1413 2026-08-24 04:38:35 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1414 2026-08-24 04:38:35 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1415 2026-08-24 04:38:35 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1416 2026-08-24 04:38:54 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/announcements | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1417 2026-08-24 04:38:54 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1418 2026-08-24 04:38:54 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1419 2026-08-24 04:38:54 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1420 2026-08-24 04:39:01 | 10.30.9.117 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1421 2026-08-24 04:39:01 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1422 2026-08-24 04:39:01 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP | Status: 200
+#1423 2026-08-24 04:39:01 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1424 2026-08-24 04:39:01 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1425 2026-08-24 04:39:01 | 10.30.8.10 -> 10.30.9.117 | Protocol: TCP
+#1426 2026-08-24 04:39:01 | 10.30.9.117 -> 10.30.8.10 | Protocol: TCP
+#1427 2026-08-24 17:47:00 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1428 2026-08-24 17:47:00 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1429 2026-08-24 17:47:00 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1430 2026-08-24 17:47:00 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/login | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Credentials found (user=mchen, password=Fa***)
+#1431 2026-08-24 17:47:00 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1432 2026-08-24 17:47:00 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1433 2026-08-24 17:47:00 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1434 2026-08-24 17:47:00 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/notifications | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1435 2026-08-24 17:47:00 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1436 2026-08-24 17:47:00 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1437 2026-08-24 17:47:00 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1438 2026-08-24 17:47:15 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/ledger/general_ledger_export.csv | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1439 2026-08-24 17:47:15 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1440 2026-08-24 17:47:15 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1441 2026-08-24 17:47:15 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1442 2026-08-24 17:47:30 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP POST | POST /api/v1/finance/payroll/export | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1443 2026-08-24 17:47:30 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1444 2026-08-24 17:47:30 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1445 2026-08-24 17:47:30 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1446 2026-08-24 17:47:34 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP GET | GET /finance/audit/Q3_2026_Internal_Audit.pdf | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1447 2026-08-24 17:47:34 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1448 2026-08-24 17:47:34 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1449 2026-08-24 17:47:34 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1450 2026-08-24 17:47:48 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1451 2026-08-24 17:47:48 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1452 2026-08-24 17:47:48 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1453 2026-08-24 17:47:48 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1454 2026-08-24 17:47:54 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP GET | GET /api/v1/dashboard | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1455 2026-08-24 17:47:54 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1456 2026-08-24 17:47:54 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1457 2026-08-24 17:47:54 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1458 2026-08-24 17:48:10 | 10.30.9.118 -> 10.30.8.10 | Protocol: HTTP POST | POST /auth/logout | Host: portal.corp.local | User-Agent: Mozilla/5.0 (corp workstation) CorpPortalClient/4.1 | Cookies present
+#1459 2026-08-24 17:48:10 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1460 2026-08-24 17:48:10 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP | Status: 200
+#1461 2026-08-24 17:48:10 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1462 2026-08-24 17:48:10 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP
+#1463 2026-08-24 17:48:10 | 10.30.8.10 -> 10.30.9.118 | Protocol: TCP
+#1464 2026-08-24 17:48:10 | 10.30.9.118 -> 10.30.8.10 | Protocol: TCP

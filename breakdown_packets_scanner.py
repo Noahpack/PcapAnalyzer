@@ -1,94 +1,65 @@
-# This code will analyze your pcap file and generate a report.
-# You have a section to select the pcap file you want to analyze and another section to select the report file name you want to generate.
-# The analyze_packet function will extract the source IP address, destination IP address, and protocol of each packet.
-# If the packet has an HTTP payload, it will extract the HTTP method (GET or POST) and use that as the protocol instead.
-# You will also have a potential to select the packet you want to analyze.
+# This code will analyze the first 20 packets of every .pcap file in
+# pcap_file/ and generate a detailed HTTP breakdown report for each one
+# inside Better_Outputs/.
 
-import scapy.all as scapy
-import re
-import time
+import os
 
-def extract_http_headers(payload):
-    headers = {}
-    header_lines = re.findall(r'(.*?): (.*?)\r\n', payload)
-    for header in header_lines:
-        headers[header[0].lower()] = header[1]
-    return headers
+from pcap_parser import build_packet_records
 
-def is_sql_injection(payload):
-    # Add more SQL injection patterns as needed
-    sql_injection_patterns = ["' or 'a'='a", "1=1"]
-    return any(pattern in payload for pattern in sql_injection_patterns)
+PACKET_LIMIT = 20
 
-def analyze_http_packet(packet, report_file):
-    # Check if it's an HTTP request
-    if packet.haslayer(scapy.Raw) and packet.haslayer(scapy.IP):
-        protocol = packet.getlayer(scapy.IP).getfieldval("proto")
-        payload = packet[scapy.Raw].load.decode(errors='ignore')
 
-        # Check for HTTP GET or POST request
-        if "GET" in payload or "POST" in payload:
-            url_match = re.search(r'(GET|POST) (.*?) HTTP', payload)
-            user_match = re.search(r'(?i)(?:user|username)=(\w+)', payload)
-            password_match = re.search(r'(?i)password=([^&\s]+)', payload)
-            status_match = re.search(r'HTTP/1.\d (\d{3})', payload)
+def write_http_breakdown(records, report_file):
+    with open(report_file, "w") as file:
+        for record in records:
+            if record["index"] > PACKET_LIMIT:
+                break
+            if not record["request_type"]:
+                continue
 
-            # Extract HTTP headers
-            headers = extract_http_headers(payload)
+            line = (
+                f"{record['timestamp']} - Source IP: {record['src_ip']}, "
+                f"Destination IP: {record['dst_ip']} - "
+                f"Protocol: {record['protocol']}, Type: {record['request_type']}, "
+                f"URL: {record['url']} "
+            )
+            if record["credentials_found"]:
+                line += f"Credentials: {record['credentials_hint']} "
+            if record["status_code"]:
+                line += f"Status: {record['status_code']} "
+            if record["host"]:
+                line += f"Host: {record['host']} "
+            if record["user_agent"]:
+                line += f"User-Agent: {record['user_agent']} "
+            if record["accept"]:
+                line += f"Accept: {record['accept']} "
+            if record["referer"]:
+                line += f"Referer: {record['referer']} "
+            if record["cookies_present"]:
+                line += "Cookies present "
+            if record["multipart_form_data"]:
+                line += "MIME Multipart Media Encapsulation Detected "
+            if record["sql_injection_suspected"]:
+                line += "Potential SQL Injection Attack Detected "
 
-            # Write to report file
-            with open(report_file, "a") as file:
-                try:
-                    timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(packet.time)))
-                except TypeError:
-                    timestamp = "Unknown Timestamp"
-                
-                file.write(f"{timestamp} - Source IP: {packet[scapy.IP].src}, Destination IP: {packet[scapy.IP].dst} - ")
-                if url_match:
-                    file.write(f"Protocol: {protocol}, Type: {url_match.group(1)}, URL: {url_match.group(2)} ")
-                if user_match:
-                    file.write(f"User: {user_match.group(1)} ")
-                if password_match:
-                    file.write(f"Password: {password_match.group(1)} ")
-                if status_match:
-                    file.write(f"Status: {status_match.group(1)} ")
-
-                # Extract additional details from headers
-                if 'host' in headers:
-                    file.write(f"Host: {headers['host']} ")
-                if 'user-agent' in headers:
-                    file.write(f"User-Agent: {headers['user-agent']} ")
-                if 'accept' in headers:
-                    file.write(f"Accept: {headers['accept']} ")
-                if 'referer' in headers:
-                    file.write(f"Referer: {headers['referer']} ")
-                if 'cookie' in headers:
-                    file.write(f"Cookies: {headers['cookie']} ")
-                if 'content-type' in headers and 'multipart/form-data' in headers['content-type']:
-                    file.write("MIME Multipart Media Encapsulation Detected ")
-
-                # Check for potential SQL injection
-                if is_sql_injection(payload):
-                    file.write("Potential SQL Injection Attack Detected ")
-
-                file.write("\n")
+            file.write(line.strip() + "\n")
 
 def main(pcap_file, report_file):
-    # Read the pcap file
-    packets = scapy.rdpcap(pcap_file)
+    records = build_packet_records(pcap_file)
+    write_http_breakdown(records, report_file)
 
-    # Analyze each packet for HTTP GET and POST requests in lines 1 to 20
-    for packet in packets[:20]:
-        analyze_http_packet(packet, report_file)
+def process_folder(input_folder, output_folder):
+    os.makedirs(output_folder, exist_ok=True)
+    pcap_files = [f for f in os.listdir(input_folder) if f.lower().endswith(".pcap")]
+
+    for pcap_file in pcap_files:
+        input_path = os.path.join(input_folder, pcap_file)
+        output_path = os.path.join(output_folder, pcap_file + ".txt")
+        main(input_path, output_path)
+        print(f"Analysis completed for {pcap_file}. Report saved to {output_path}")
 
 if __name__ == "__main__":
-    # Replace 'your_pcap_file.pcap' with the actual pcap file you want to analyze
-    pcap_file_path = './pcap_file/IT6300FE.pcap'
-    
-    # Define the report file
-    report_file_path = 'report.txt'
-    
-    # Analyze the pcap file for HTTP GET and POST requests in lines 1 to 20
-    main(pcap_file_path, report_file_path)
-    
-    print(f"Analysis completed. Report saved to {report_file_path}")
+    input_folder_path = "./pcap_file"
+    output_folder_path = "./Better_Outputs"
+
+    process_folder(input_folder_path, output_folder_path)

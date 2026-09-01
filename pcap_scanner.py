@@ -1,41 +1,36 @@
-# This file will analyze your pcap file and generate a report
+# This file will analyze every .pcap file in pcap_file/ and generate a report
+# for each one inside Better_Outputs/.
 
-import scapy.all as scapy
+import os
 
-def analyze_packet(packet, report_file):
-    # Extract IP addresses and protocol
-    if packet.haslayer(scapy.IP):
-        src_ip = packet[scapy.IP].src
-        dst_ip = packet[scapy.IP].dst
-        protocol = "TCP" if packet.haslayer(scapy.TCP) else "UDP" if packet.haslayer(scapy.UDP) else "Other"
+from pcap_parser import build_packet_records
 
-        # Check if it's an HTTP request
-        if packet.haslayer(scapy.Raw) and packet.haslayer(scapy.TCP):
-            payload = packet[scapy.Raw].load.decode(errors='ignore')
-            if "GET" in payload:
-                protocol = "HTTP GET"
-            elif "POST" in payload:
-                protocol = "HTTP POST"
 
-        # Write to report file
-        with open(report_file, "a") as file:
-            file.write(f"Source IP: {src_ip}, Destination IP: {dst_ip}, Protocol: {protocol}\n")
+def write_basic_report(records, report_file):
+    with open(report_file, "w") as file:
+        for record in records:
+            file.write(
+                f"Source IP: {record['src_ip']}, "
+                f"Destination IP: {record['dst_ip']}, "
+                f"Protocol: {record['protocol']}\n"
+            )
 
 def main(pcap_file, report_file):
-    # Read the pcap file
-    packets = scapy.rdpcap(pcap_file)
+    records = build_packet_records(pcap_file)
+    write_basic_report(records, report_file)
 
-    # Analyze each packet and write to report file
-    for packet in packets:
-        analyze_packet(packet, report_file)
+def process_folder(input_folder, output_folder):
+    os.makedirs(output_folder, exist_ok=True)
+    pcap_files = [f for f in os.listdir(input_folder) if f.lower().endswith(".pcap")]
+
+    for pcap_file in pcap_files:
+        input_path = os.path.join(input_folder, pcap_file)
+        output_path = os.path.join(output_folder, pcap_file + ".txt")
+        main(input_path, output_path)
+        print(f"Analysis completed for {pcap_file}. Report saved to {output_path}")
 
 if __name__ == "__main__":
-    # Replace 'your_pcap_file.pcap' with the actual pcap file you want to analyze
-    pcap_file_path = './pcap_file/IT6300FE.pcap'
-    # Define the report file
-    report_file_path = 'report.txt'
-    
-    # Analyze the pcap file and generate the report
-    main(pcap_file_path, report_file_path)
-    
-    print(f"Analysis completed. Report saved to {report_file_path}")
+    input_folder_path = "./pcap_file"
+    output_folder_path = "./Better_Outputs"
+
+    process_folder(input_folder_path, output_folder_path)

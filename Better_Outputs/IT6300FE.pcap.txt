@@ -1,0 +1,457 @@
+======================================================================
+PCAP ANALYSIS REPORT: IT6300FE.pcap
+Generated: 2026-09-01 12:13:57
+======================================================================
+
+OVERVIEW
+- Total packets analyzed: 371
+- Unique source IPs: 161.28.112.43, 161.28.112.58, 161.28.112.66, 161.28.112.67
+- Unique destination IPs: 161.28.112.43, 161.28.112.58, 161.28.112.66, 161.28.112.67
+- Protocol breakdown: {'TCP': 340, 'HTTP GET': 19, 'HTTP POST': 12}
+- HTTP requests detected: 31
+- Suspicious findings (SQLi/credentials): 5
+
+EXECUTIVE SUMMARY (AI-Generated)
+Executive Summary:
+
+The pcap analysis of file IT6300FE.pcap revealed several potential security threats. A total of 371 packets were analyzed, with four unique source and destination IPs identified. The protocol breakdown showed a majority of TCP traffic, with HTTP GET and POST requests also present. Suspicious activities were detected, including potential SQL Injection attacks, possible DDoS attack, potential web scraping or data harvesting activity, and potential brute force attacks. The host www.badstore.net was frequently referenced, which is known for hosting malicious content. The User-Agent string was consistent across all HTTP requests, indicating a single device or potentially a scripted bot. 
+
+Recommendations:
+
+- Investigate the source IPs for potential malicious activity, especially those associated with the SQL Injection attacks and the potential DDoS attack.
+- Consider blocking or monitoring traffic to and from www.badstore.net, as it is frequently associated with malicious activity.
+- Investigate the consistent User-Agent string across all HTTP requests. If it is associated with a single device, check the device for potential compromise. If it is associated with a scripted bot, further investigation is needed to determine its purpose.
+- Review the security of the SQL database and implement measures to prevent SQL Injection attacks.
+- Monitor the traffic between 161.28.112.43 and 161.28.112.66 for potential DDoS attacks.
+- Investigate the potential web scraping or data harvesting activity between 161.28.112.66 and 161.28.112.43.
+- Review the security measures in place for handling cookies, as they were present in several HTTP GET requests.
+- Investigate the potential brute force attacks, especially those associated with the User-Agent "Mozilla/5.0 (Hydra)".
+- Investigate the sudden change in communication from 161.28.112.66 to 161.28.112.67 for potential host compromise.
+
+DETAILED FINDINGS (AI-Generated, per packet-range chunk)
+[Packets chunk 1/9]
+- Packet #14: Potential SQL Injection attack detected. The HTTP POST request to /sqlInjection.php could be an attempt to exploit a vulnerability in the SQL database. The credentials (user=uvu, password=?) were also exposed in the packet.
+- Packet #24 and #29: The host www.badstore.net is known for hosting malicious content. The HTTP GET requests to this host could indicate that the user's system is compromised or the user is unknowingly visiting a malicious site.
+- Packet #37: Another HTTP GET request to www.badstore.net, this time to /images/cart.jpg. This could be an attempt to download a malicious image file or another sign of the user's system being compromised.
+
+[Packets chunk 2/9]
+- The traffic between 161.28.112.43 and 161.28.112.66 is frequent and repetitive, which could indicate a potential DDoS attack.
+- Packet #67 shows a GET request to /cgi-bin/badstore.cgi?action=loginregister, which could be an attempt to exploit a common vulnerability in CGI scripts.
+- The host www.badstore.net is frequently referenced, which could be a compromised or malicious website.
+- The User-Agent string is consistent across all HTTP requests, indicating a single device or potentially a scripted bot.
+- No clear evidence of SQL injection or credential exposure in this segment.
+
+[Packets chunk 3/9]
+- Packet #93 and #104 indicate potential SQL Injection attacks from IP 161.28.112.66 to IP 161.28.112.43. Both packets are HTTP POST requests to /cgi-bin/badstore.cgi with the action parameter set to 'login'.
+- Packet #94 shows a server response with status 500 (Internal Server Error) after the potential SQL Injection attack in packet #93, indicating that the attack may have been successful in disrupting the server.
+- The host www.badstore.net is suspicious as it is associated with known vulnerable web applications used for security training and testing.
+- The repeated TCP traffic between the two IPs (161.28.112.66 and 161.28.112.43) could indicate a persistent connection or continuous attempts to exploit vulnerabilities.
+
+[Packets chunk 4/9]
+- The traffic between 161.28.112.66 and 161.28.112.43 is suspicious due to the repetitive HTTP GET requests to /cgi-bin/bsheader.cgi and /cgi-bin/badstore.cgi?action=guestbook on www.badstore.net (packets #111, #122, #129). This could indicate a potential web scraping or data harvesting activity.
+- The presence of cookies in the HTTP GET requests (packets #111, #122, #129) suggests that the user is logged in, which could potentially expose sensitive information if the connection is not secure.
+- The frequent TCP traffic between the two IPs without any data transmission could be a sign of a potential reconnaissance activity or a keep-alive mechanism to maintain an active connection for a later attack.
+- No explicit signs of SQL injection or other specific attacks are visible in this segment. Further analysis is required to confirm any malicious activity.
+
+[Packets chunk 5/9]
+- The HTTP POST request to /cgi-bin/badstore.cgi?action=doguestbook from 161.28.112.66 to 161.28.112.43 at 11:30:08 on 2016-04-14 could be a potential SQL injection attack. The "doguestbook" action is suspicious and may be an attempt to manipulate the database.
+- The HTTP GET requests to /cgi-bin/badstore.cgi?action=login from 161.28.112.67 to 161.28.112.58 at 13:22:46 on 2016-11-29 are suspicious. The User-Agent "Mozilla/5.0 (Hydra)" suggests the use of Hydra, a tool often used for brute force attacks, indicating a potential credential exposure attack.
+- The sudden change in communication from 161.28.112.66 to 161.28.112.67 at 13:22:46 on 2016-11-29 is unusual and may indicate a potential compromise of the host.
+
+[Packets chunk 6/9]
+- Multiple HTTP GET requests (#188, #199, #200, #201) from 161.28.112.67 to 161.28.112.58 for the same resource (/cgi-bin/badstore.cgi?action=login) within the same second, suggesting a potential brute force attack.
+- The User-Agent "Mozilla/5.0 (Hydra)" indicates the use of Hydra, a known password-cracking tool, further supporting the brute force attack theory.
+- A HTTP POST request (#222) from 161.28.112.67 to 161.28.112.58, with cookies present, could indicate a successful login or session hijacking attempt.
+- High frequency of TCP packets between the two IPs, possibly indicating a DoS attack or network scan.
+- No clear signs of SQL injection or credential exposure in this segment.
+
+[Packets chunk 7/9]
+- Multiple HTTP POST requests to /cgi-bin/badstore.cgi?action=login from 161.28.112.67 to 161.28.112.58 within the same second (timestamps: 13:22:46), suggesting a potential brute force attack.
+- The User-Agent "Mozilla/5.0 (Hydra)" in the HTTP POST requests is suspicious. Hydra is a known password-cracking tool, reinforcing the likelihood of a brute force attack.
+- The presence of cookies in the HTTP POST requests could indicate session hijacking attempts or misuse of stolen cookies.
+- The repeated TCP exchanges between the two IPs (161.28.112.67 and 161.28.112.58) within the same second could indicate a potential DoS attack.
+
+[Packets chunk 8/9]
+- The HTTP POST requests from 161.28.112.67 to 161.28.112.58 at 13:22:46 (#286, #294) are suspicious. They are targeting /cgi-bin/badstore.cgi?action=login, which may indicate an attempt to exploit a vulnerability or perform a brute force attack on the login page.
+- The User-Agent string "Mozilla/5.0 (Hydra)" in these requests is also unusual. Hydra is a known password-cracking tool, further suggesting a brute force attack.
+- The presence of cookies in these requests could indicate session hijacking or cookie theft.
+- The rapid, repeated TCP traffic between these two IPs within the same second could be part of a Denial of Service (DoS) attack, or related to the suspected brute force attack.
+
+[Packets chunk 9/9]
+- High frequency of TCP packets exchanged between 161.28.112.58 and 161.28.112.67 within the same second (2016-11-29 13:22:46), which could indicate a Denial of Service (DoS) attack.
+- The pattern of alternating requests between the two IPs suggests a potential TCP SYN flood attack.
+- The repeated status 200 responses could indicate that the target system is responding to the attack, which may lead to resource exhaustion.
+- No evidence of SQL injection or credential exposure in this segment. Further packet content analysis is required for a more detailed assessment.
+
+PACKET-LEVEL DATA
+#1 2016-04-14 11:28:39 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#2 2016-04-14 11:28:39 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#3 2016-04-14 11:28:39 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#4 2016-04-14 11:28:39 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET / | Host: www.sql.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+#5 2016-04-14 11:28:39 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#6 2016-04-14 11:28:39 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#7 2016-04-14 11:28:44 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#8 2016-04-14 11:28:44 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#9 2016-04-14 11:28:44 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#10 2016-04-14 11:28:44 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#11 2016-04-14 11:28:51 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#12 2016-04-14 11:28:51 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#13 2016-04-14 11:28:51 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#14 2016-04-14 11:28:51 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP POST | POST /sqlInjection.php | Host: www.sql.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.sql.net/ | Credentials found (user=uvu, password=?)
+#15 2016-04-14 11:28:52 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200 | Potential SQL Injection
+#16 2016-04-14 11:28:52 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#17 2016-04-14 11:28:57 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#18 2016-04-14 11:28:57 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#19 2016-04-14 11:28:57 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#20 2016-04-14 11:28:57 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#21 2016-04-14 11:28:57 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#22 2016-04-14 11:28:57 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#23 2016-04-14 11:28:57 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#24 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET / | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+#25 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#26 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#27 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#28 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#29 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /images/BadStore.jpg | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: image/png,image/*;q=0.8,*/*;q=0.5 | Referer: http://www.badstore.net/
+#30 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#31 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#32 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#33 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#34 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#35 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#36 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#37 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /images/cart.jpg | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: image/png,image/*;q=0.8,*/*;q=0.5 | Referer: http://www.badstore.net/
+#38 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#39 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /images/store1.jpg | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: image/png,image/*;q=0.8,*/*;q=0.5 | Referer: http://www.badstore.net/
+#40 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#41 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#42 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#43 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#44 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#45 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#46 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#47 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /images/index.gif | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: image/png,image/*;q=0.8,*/*;q=0.5 | Referer: http://www.badstore.net/
+#48 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#49 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#50 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#51 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#52 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#53 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /favicon.ico | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: image/png,image/*;q=0.8,*/*;q=0.5
+#54 2016-04-14 11:29:01 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#55 2016-04-14 11:29:01 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#56 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#57 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#58 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#59 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#60 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#61 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#62 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#63 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#64 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#65 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#66 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#67 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=loginregister | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/
+#68 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#69 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#70 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#71 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#72 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#73 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#74 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /cgi-bin/bsheader.cgi | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=loginregister
+#75 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#76 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#77 2016-04-14 11:29:06 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#78 2016-04-14 11:29:06 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#79 2016-04-14 11:29:11 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#80 2016-04-14 11:29:11 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#81 2016-04-14 11:29:11 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#82 2016-04-14 11:29:11 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#83 2016-04-14 11:29:14 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#84 2016-04-14 11:29:14 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#85 2016-04-14 11:29:14 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#86 2016-04-14 11:29:19 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#87 2016-04-14 11:29:19 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#88 2016-04-14 11:29:19 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#89 2016-04-14 11:29:19 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#90 2016-04-14 11:29:23 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#91 2016-04-14 11:29:23 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#92 2016-04-14 11:29:23 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#93 2016-04-14 11:29:23 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=loginregister | MIME multipart form data | Potential SQL Injection
+#94 2016-04-14 11:29:23 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 500 | Potential SQL Injection
+#95 2016-04-14 11:29:23 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#96 2016-04-14 11:29:23 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#97 2016-04-14 11:29:23 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#98 2016-04-14 11:29:23 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#99 2016-04-14 11:29:23 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#100 2016-04-14 11:29:23 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#101 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#102 2016-04-14 11:29:30 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#103 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#104 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=loginregister | MIME multipart form data | Potential SQL Injection
+#105 2016-04-14 11:29:30 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#106 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#107 2016-04-14 11:29:30 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#108 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#109 2016-04-14 11:29:30 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#110 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#111 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /cgi-bin/bsheader.cgi | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=login | Cookies present
+#112 2016-04-14 11:29:30 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#113 2016-04-14 11:29:30 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#114 2016-04-14 11:29:30 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#115 2016-04-14 11:29:35 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#116 2016-04-14 11:29:35 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#117 2016-04-14 11:29:35 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#118 2016-04-14 11:29:35 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#119 2016-04-14 11:29:35 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#120 2016-04-14 11:29:35 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#121 2016-04-14 11:29:35 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#122 2016-04-14 11:29:36 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=guestbook | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=login | Cookies present
+#123 2016-04-14 11:29:37 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#124 2016-04-14 11:29:37 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#125 2016-04-14 11:29:37 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#126 2016-04-14 11:29:37 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#127 2016-04-14 11:29:37 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#128 2016-04-14 11:29:37 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#129 2016-04-14 11:29:37 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /cgi-bin/bsheader.cgi | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=guestbook | Cookies present
+#130 2016-04-14 11:29:37 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#131 2016-04-14 11:29:37 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#132 2016-04-14 11:29:37 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#133 2016-04-14 11:29:42 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#134 2016-04-14 11:29:42 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#135 2016-04-14 11:29:42 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#136 2016-04-14 11:29:42 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#137 2016-04-14 11:29:49 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#138 2016-04-14 11:29:49 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#139 2016-04-14 11:29:49 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#140 2016-04-14 11:29:54 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#141 2016-04-14 11:29:54 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#142 2016-04-14 11:29:54 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#143 2016-04-14 11:29:54 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#144 2016-04-14 11:30:04 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#145 2016-04-14 11:30:04 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#146 2016-04-14 11:30:04 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#147 2016-04-14 11:30:08 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=doguestbook | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=guestbook | Cookies present | MIME multipart form data
+#148 2016-04-14 11:30:08 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#149 2016-04-14 11:30:08 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#150 2016-04-14 11:30:08 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#151 2016-04-14 11:30:08 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#152 2016-04-14 11:30:08 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#153 2016-04-14 11:30:08 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#154 2016-04-14 11:30:08 | 161.28.112.66 -> 161.28.112.43 | Protocol: HTTP GET | GET /cgi-bin/bsheader.cgi | Host: www.badstore.net | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.4 | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Referer: http://www.badstore.net/cgi-bin/badstore.cgi?action=doguestbook | Cookies present
+#155 2016-04-14 11:30:08 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP | Status: 200
+#156 2016-04-14 11:30:08 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#157 2016-04-14 11:30:08 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#158 2016-04-14 11:30:13 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#159 2016-04-14 11:30:13 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#160 2016-04-14 11:30:13 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#161 2016-04-14 11:30:13 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#162 2016-04-14 11:30:20 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#163 2016-04-14 11:30:20 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#164 2016-04-14 11:30:20 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#165 2016-04-14 11:30:25 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#166 2016-04-14 11:30:25 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#167 2016-04-14 11:30:25 | 161.28.112.43 -> 161.28.112.66 | Protocol: TCP
+#168 2016-04-14 11:30:25 | 161.28.112.66 -> 161.28.112.43 | Protocol: TCP
+#169 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#170 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#171 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#172 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#173 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#174 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#175 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#176 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#177 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#178 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#179 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#180 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#181 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#182 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra)
+#183 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#184 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#185 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#186 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra)
+#187 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#188 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra)
+#189 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#190 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#191 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#192 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#193 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#194 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#195 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#196 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#197 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#198 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#199 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra)
+#200 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra)
+#201 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP GET | GET /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra)
+#202 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#203 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#204 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#205 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#206 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#207 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#208 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#209 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#210 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#211 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#212 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#213 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#214 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#215 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#216 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#217 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#218 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#219 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#220 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#221 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#222 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#223 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#224 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#225 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#226 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#227 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#228 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#229 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#230 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#231 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#232 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#233 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#234 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#235 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#236 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#237 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#238 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#239 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#240 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#241 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#242 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#243 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#244 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#245 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#246 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#247 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#248 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#249 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#250 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#251 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#252 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#253 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#254 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#255 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#256 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#257 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#258 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#259 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#260 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#261 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#262 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#263 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#264 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#265 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#266 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#267 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#268 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#269 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#270 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#271 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#272 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#273 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#274 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#275 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#276 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#277 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#278 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#279 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#280 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#281 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#282 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#283 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#284 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#285 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#286 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#287 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#288 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#289 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#290 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#291 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#292 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#293 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#294 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: HTTP POST | POST /cgi-bin/badstore.cgi?action=login | Host: 161.28.112.58 | User-Agent: Mozilla/5.0 (Hydra) | Cookies present
+#295 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#296 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#297 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#298 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#299 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#300 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#301 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#302 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#303 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#304 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#305 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#306 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#307 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#308 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#309 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#310 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#311 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#312 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#313 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#314 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#315 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#316 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#317 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#318 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#319 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#320 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#321 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#322 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#323 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#324 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#325 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#326 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#327 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#328 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#329 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#330 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#331 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#332 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#333 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#334 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#335 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#336 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#337 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#338 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#339 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#340 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#341 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#342 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#343 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#344 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#345 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#346 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#347 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#348 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#349 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#350 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#351 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#352 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#353 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#354 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#355 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#356 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#357 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#358 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#359 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#360 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#361 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP | Status: 200
+#362 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#363 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#364 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#365 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#366 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#367 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#368 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#369 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP
+#370 2016-11-29 13:22:46 | 161.28.112.58 -> 161.28.112.67 | Protocol: TCP
+#371 2016-11-29 13:22:46 | 161.28.112.67 -> 161.28.112.58 | Protocol: TCP

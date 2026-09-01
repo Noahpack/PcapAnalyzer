@@ -1,0 +1,93 @@
+======================================================================
+PCAP ANALYSIS REPORT: data_exfiltration.pcap
+Generated: 2026-09-01 12:22:17
+======================================================================
+
+OVERVIEW
+- Total packets analyzed: 52
+- Unique source IPs: 10.20.5.100, 10.20.5.14, 192.0.2.50, 198.51.100.23
+- Unique destination IPs: 10.20.5.100, 10.20.5.14, 192.0.2.50, 198.51.100.23, 203.0.113.77
+- Protocol breakdown: {'TCP': 44, 'HTTP POST': 4, 'HTTP GET': 4}
+- HTTP requests detected: 8
+- Suspicious findings (SQLi/credentials): 1
+
+EXECUTIVE SUMMARY (AI-Generated)
+Executive Summary:
+
+The analysis of the pcap file data_exfiltration.pcap reveals several potential security concerns. The most alarming is the exposure of user credentials in plaintext, suggesting a significant vulnerability in the login mechanism. There are also indications of unauthorized access to sensitive files, which could suggest data exfiltration. Communication between internal and external IPs using HTTP POST requests and curl user-agent further supports this suspicion. Additionally, repeated unsuccessful attempts to connect to an external IP could indicate a botnet or command and control server communication attempt. Finally, repeated TCP requests from an external IP to an internal IP within the same second, including a 403 status, suggest a possible brute force or denial of service attack. 
+
+Recommendations:
+
+- Investigate the login mechanism to ensure user credentials are encrypted and not exposed in plaintext.
+- Review access controls and permissions for sensitive files to prevent unauthorized access.
+- Investigate the communication between the internal host and the external IPs to determine if data exfiltration is occurring.
+- Investigate the repeated unsuccessful attempts to connect to the external IP to determine if it is a botnet or command and control server.
+- Monitor the network for repeated TCP requests to prevent potential brute force or denial of service attacks.
+- Further investigate the HTTP POST request from the internal host to the external IP to determine the nature of the uploaded data.
+- Investigate the traffic between the internal host and the external IP to determine if it is part of a command and control communication.
+
+DETAILED FINDINGS (AI-Generated, per packet-range chunk)
+[Packets chunk 1/2]
+- Packet #4: User credentials (user=jsmith, password=Su***) are exposed in plaintext, indicating a potential security flaw in the login mechanism.
+- Packet #12, #16, #20: The user is accessing sensitive files (Employee_Salary_Master.xlsx, Project_Falcon_Merger_Agreement.docx, Source_Code_Export.zip) which could indicate data exfiltration if the user is not authorized to access these files.
+- Packet #27-#34, #39-#42: The host 10.20.5.14 is communicating with an external IP 198.51.100.23, which could be a data exfiltration attempt. The use of HTTP POST requests and curl user-agent in packets #30 and #42 further supports this suspicion.
+- Packet #35-#38: Repeated unsuccessful attempts to connect to another external IP 203.0.113.77, which could indicate a botnet or command and control server communication attempt.
+
+[Packets chunk 2/2]
+- Repeated TCP requests from 198.51.100.23 to 10.20.5.14 (#43, #44, #46) within the same second, including a 403 status, suggest a possible brute force or denial of service attack.
+- The HTTP POST request from 10.20.5.14 to 192.0.2.50 (#50) using curl as a user-agent could indicate a file upload or data exfiltration attempt. Further investigation is needed to determine the nature of the uploaded data.
+- The traffic between 10.20.5.14 and 192.0.2.50 (#47, #48, #49, #51, #52) could be part of a command and control communication if associated with malicious activity.
+
+PACKET-LEVEL DATA
+#1 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#2 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP
+#3 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#4 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: HTTP POST | POST /login | Host: intranet.corp.local | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0.0.0 | Credentials found (user=jsmith, password=Su***)
+#5 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP
+#6 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP | Status: 200
+#7 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#8 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: HTTP GET | GET /documents/Q4_2025_Financial_Report.pdf | Host: intranet.corp.local | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0.0.0 | Accept: */* | Cookies present
+#9 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP
+#10 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP | Status: 200
+#11 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#12 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: HTTP GET | GET /hr/Employee_Salary_Master.xlsx | Host: intranet.corp.local | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0.0.0 | Accept: */* | Cookies present
+#13 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP
+#14 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP | Status: 200
+#15 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#16 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: HTTP GET | GET /legal/Project_Falcon_Merger_Agreement.docx | Host: intranet.corp.local | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0.0.0 | Accept: */* | Cookies present
+#17 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP
+#18 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP | Status: 200
+#19 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#20 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: HTTP GET | GET /engineering/Source_Code_Export.zip | Host: intranet.corp.local | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0.0.0 | Accept: */* | Cookies present
+#21 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP
+#22 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP | Status: 200
+#23 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#24 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#25 2026-08-20 03:14:00 | 10.20.5.100 -> 10.20.5.14 | Protocol: TCP
+#26 2026-08-20 03:14:00 | 10.20.5.14 -> 10.20.5.100 | Protocol: TCP
+#27 2026-08-20 03:14:06 | 10.20.5.14 -> 198.51.100.23 | Protocol: TCP
+#28 2026-08-20 03:14:06 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP
+#29 2026-08-20 03:14:06 | 10.20.5.14 -> 198.51.100.23 | Protocol: TCP
+#30 2026-08-20 03:14:07 | 10.20.5.14 -> 198.51.100.23 | Protocol: HTTP POST | POST /upload | Host: 198.51.100.23 | User-Agent: curl/8.4.0
+#31 2026-08-20 03:14:07 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP
+#32 2026-08-20 03:14:07 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP | Status: 403
+#33 2026-08-20 03:14:07 | 10.20.5.14 -> 198.51.100.23 | Protocol: TCP
+#34 2026-08-20 03:14:07 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP
+#35 2026-08-20 03:14:11 | 10.20.5.14 -> 203.0.113.77 | Protocol: TCP
+#36 2026-08-20 03:14:12 | 10.20.5.14 -> 203.0.113.77 | Protocol: TCP
+#37 2026-08-20 03:14:14 | 10.20.5.14 -> 203.0.113.77 | Protocol: TCP
+#38 2026-08-20 03:14:18 | 10.20.5.14 -> 203.0.113.77 | Protocol: TCP
+#39 2026-08-20 03:14:23 | 10.20.5.14 -> 198.51.100.23 | Protocol: TCP
+#40 2026-08-20 03:14:23 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP
+#41 2026-08-20 03:14:23 | 10.20.5.14 -> 198.51.100.23 | Protocol: TCP
+#42 2026-08-20 03:14:23 | 10.20.5.14 -> 198.51.100.23 | Protocol: HTTP POST | POST /upload | Host: 198.51.100.23 | User-Agent: curl/8.4.0
+#43 2026-08-20 03:14:23 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP
+#44 2026-08-20 03:14:23 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP | Status: 403
+#45 2026-08-20 03:14:23 | 10.20.5.14 -> 198.51.100.23 | Protocol: TCP
+#46 2026-08-20 03:14:23 | 198.51.100.23 -> 10.20.5.14 | Protocol: TCP
+#47 2026-08-20 03:14:27 | 10.20.5.14 -> 192.0.2.50 | Protocol: TCP
+#48 2026-08-20 03:14:27 | 192.0.2.50 -> 10.20.5.14 | Protocol: TCP
+#49 2026-08-20 03:14:27 | 10.20.5.14 -> 192.0.2.50 | Protocol: TCP
+#50 2026-08-20 03:14:27 | 10.20.5.14 -> 192.0.2.50 | Protocol: HTTP POST | POST /upload | Host: 192.0.2.50 | User-Agent: curl/8.4.0
+#51 2026-08-20 03:14:27 | 192.0.2.50 -> 10.20.5.14 | Protocol: TCP
+#52 2026-08-20 03:14:35 | 10.20.5.14 -> 192.0.2.50 | Protocol: TCP

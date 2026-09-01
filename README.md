@@ -1,24 +1,19 @@
 # PcapAnalyzer
 Welcome to PcapAnalyzer, a comprehensive toolkit for working with pcap files, which are commonly used to store network traffic captures. This repository provides a suite of tools designed to analyze, inspect, and extract insights from packet capture files. Whether you are a network security professional, a system administrator, or a developer working on network-related projects, PcapAnalyzer equips you with the essential utilities to streamline your pcap file analysis workflow.
 
-Also, I added OpenAI's GPT-3 model to generate a report for the pcap file. The report is generated in the form of a text file. The report contains the following information:
+Also, I added an OpenAI-powered analysis pass (`pcap_formatted.py`) that generates one detailed, narrative report per `.pcap` file. Every packet is parsed locally, then grouped into chunks sent to GPT-4 for security analysis, and combined into a text-file report containing:
 
-- Source IP
-- Destination IP
-- Host: [URL, IP]
-- Type of vulnerability: [if any]
-- Description of the problem: [if any]
-- Possible Solutions: [if any]
-- User-Agent: [Browser, OS, Device]
-- Request Type: [Get, Post, Put, Delete]
-- Is Successful: [yes, no]
+- **Overview**: total packets analyzed, unique source/destination IPs, protocol breakdown, HTTP request count, and suspicious-finding count — computed locally so the numbers are always accurate.
+- **Executive Summary (AI-generated)**: a narrative summary and recommendations synthesized from all chunk-level findings.
+- **Detailed Findings (AI-generated)**: per packet-range chunk, called-out anomalies, suspicious patterns, and potential attacks (e.g. SQL injection, exposed credentials, unusual hosts).
+- **Packet-Level Data**: a full line-by-line record of every parsed packet (IPs, protocol, HTTP method/URL/host/status, headers, credential/SQLi flags), for reference alongside the AI narrative.
 
 In this project, we are utilizing two different AI models for text generation and analysis. The setup is as follows:
 
 ## Main Branch: OpenAI
 
 - On the main branch, the project uses OpenAI's API to generate responses, explanations, and solutions. This integration allows the system to process network intrusion detection data and generate detailed reports based on the AI's analysis.
-- `pcap_formatted.py` on this branch imports `openai` and reads `OPENAI_API_KEY` from your `.env` file.
+- `pcap_formatted.py` on this branch imports `openai` and reads `OPENAI_API_KEY` from your `.env` file. It parses every packet via the shared `pcap_parser.py` module, then sends the data to GPT-4 in rate-limit-aware chunks (see Step 6 below for the tunable constants).
 
 ## Dev Branch: GEMINI (Google's Generative AI)
 
@@ -44,11 +39,13 @@ In this project, we are utilizing two different AI models for text generation an
 To get started, clone the repository and explore the documentation for detailed instructions on installing, configuring, and utilizing the tools provided by PcapAnalyzer.
 
 ## Tools Included:
-- PacketInspector: A tool for in-depth inspection of individual network packets.
+- `pcap_parser.py`: Shared parsing module used by all three tools below — extracts per-packet IP/protocol, HTTP method/URL/host/status/headers, credential exposure, and SQL-injection indicators from a `.pcap` file.
 
-- FilterUtility: Efficiently filter and sort pcap files based on specific criteria.
+- `pcap_scanner.py`: Basic, no-API-key scan — one `Source IP, Destination IP, Protocol` line per packet, unlimited packets.
 
-- ExtractionWizard: Extract files, data, or metadata from pcap captures.
+- `breakdown_packets_scanner.py`: No-API-key detailed HTTP breakdown (method, URL, host, status, headers, credentials, SQLi flag) for the first 20 packets of each capture.
+
+- `pcap_formatted.py`: AI-powered consolidated report combining the data above for every packet in the capture with GPT-4-generated insights (see report structure above). Requires an OpenAI API key.
 
 # Step-by-Step Setup Guide
 Follow these steps in order the first time you set up the project on your own machine.
@@ -99,26 +96,24 @@ OPENAI_API_KEY=your_openai_key_here
 GEMINI_API_KEY=your_gemini_key_here
 ```
 
-## Step 6: Folders and paths you need to change
-These folders/files are project-specific and must be updated to match your own machine before running anything:
-- `pcap_file/` — Put your own `.pcap` capture file(s) here. This is the input folder read by `pcap_scanner.py`, `breakdown_packets_scanner.py`, and `pcap_formatted.py`.
-- `Better_Outputs/` — This is where `pcap_formatted.py` writes its AI-generated reports. It's created automatically if missing, but you should still confirm the path.
+## Step 6: Folders and paths
+No hardcoded paths need to be edited anymore — all three scripts loop over every `.pcap` file automatically:
+- `pcap_file/` — Drop any number of your own `.pcap` capture files here. All three scripts (`pcap_scanner.py`, `breakdown_packets_scanner.py`, `pcap_formatted.py`) read every `.pcap` file in this folder automatically.
+- `Better_Outputs/` — Each script writes one `<capture-name>.pcap.txt` report per input file here. It's created automatically if missing.
 - `Examples_Outputs/` — Sample output for reference only; not required to run the tools.
-- Inside the code, update these hardcoded values to match your setup:
-  - `pcap_scanner.py` and `breakdown_packets_scanner.py`: update `pcap_file_path` (defaults to `./pcap_file/IT6300FE.pcap`) and `report_file_path` to point at your own capture file and desired report name.
-  - `pcap_formatted.py`: update `input_folder_path` and `output_folder_path` — these currently point at an absolute path (e.g. `/Users/alanharo/Documents/GitHub/PcapAnalyzer/...`) that only works on the original author's machine. Change them to your own repo location, or to relative paths like `"./pcap_file"` and `"./Better_Outputs"`.
-  - If your pcap file is large, you can change how many packets are analyzed by editing the slice in the packet loop, e.g.:
-    ```
-    for packet in packets[:20]:
-            analyze_http_packet(packet, report_file)
-    ```
+- `breakdown_packets_scanner.py` only analyzes the first 20 packets of each capture (`PACKET_LIMIT` constant at the top of the file) — raise this if you need deeper coverage of a specific file, or use `pcap_scanner.py`/`pcap_formatted.py` for unlimited coverage.
+- `pcap_formatted.py` has a few tunable constants at the top of the file to match your OpenAI rate-limit tier:
+  - `CHUNK_CHAR_LIMIT` (default 4000) — how much packet data goes into each GPT-4 request.
+  - `MAX_CHUNKS_PER_FILE` (default 20) — caps how many chunks per capture get sent to OpenAI (all packets still appear in the Packet-Level Data section regardless).
+  - `INTER_CHUNK_SLEEP_SECONDS` / `INTER_FILE_SLEEP_SECONDS` (default 15/10) — pacing between API calls to stay under your tokens-per-minute limit. Lower these if you're on a higher tier.
 
 ## Step 7: Run the tools
 ```
-python pcap_scanner.py             # basic IP/protocol report
-python breakdown_packets_scanner.py  # detailed HTTP request report
-python pcap_formatted.py           # AI-generated report (needs your .env API key set up above)
+python pcap_scanner.py               # basic IP/protocol report, one file per capture in pcap_file/
+python breakdown_packets_scanner.py  # detailed HTTP breakdown, first 20 packets of each capture
+python pcap_formatted.py             # AI-generated narrative report (needs your .env API key set up above)
 ```
+`pcap_formatted.py` makes real, billed OpenAI API calls and paces requests (see Step 6) to respect rate limits, so it can take several minutes per capture for larger files — this is expected, not a hang.
 
 # Contributing:
 Contributions to PcapAnalyzer are welcome! Feel free to submit bug reports, feature requests, or even pull requests to enhance the functionality of this pcap analysis toolkit.

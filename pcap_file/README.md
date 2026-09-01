@@ -70,8 +70,10 @@ determine whether it's benign housekeeping or something worth escalating.
 
 **Investigate:**
 1. What HTTP methods does this host use to create, verify, and remove files?
-   (Hint: it is not limited to GET/POST — if you use `breakdown_packets_scanner.py`
-   from the parent folder, notice which requests it silently skips, and why.)
+   (Hint: it is not limited to GET/POST — `breakdown_packets_scanner.py` in the
+   parent folder now recognizes PUT/DELETE too via its shared `pcap_parser.py`
+   module, so you can cross-check your manual findings against its output.
+   Remember it only covers the first 20 packets of the capture, though.)
 2. How many create/verify/delete cycles occur, and roughly how far apart are
    they in time? Does the pattern look automated or manual?
 3. Separately, the same host also transfers a multi-part backup archive to
@@ -85,9 +87,10 @@ determine whether it's benign housekeeping or something worth escalating.
 
 **Wireshark tips:**
 - `http.request.method == "PUT"` and `http.request.method == "DELETE"` —
-  Wireshark's dissector recognizes these even though the repo's sample
-  Python scripts don't. This is a good opportunity to extend
-  `breakdown_packets_scanner.py` yourself.
+  Wireshark's dissector recognizes these, and so does the repo's
+  `pcap_parser.py` module (used by `breakdown_packets_scanner.py` and
+  `pcap_scanner.py`). Use these filters to verify the script output rather
+  than to catch something it misses.
 - `Statistics > Conversations > TCP` tab, sorted by port, to see every
   distinct destination port used by the same source host.
 - `tcp.stream eq N` to isolate one connection at a time and step through it
@@ -160,7 +163,9 @@ For each scenario, write a short incident-style report containing:
    ignore) if this were a real environment.
 
 You can validate your manual findings against the parent folder's
-`pcap_scanner.py` and `breakdown_packets_scanner.py`, but note they only
-recognize `GET`/`POST` requests — some of what you need to find in these
-scenarios (e.g. `PUT`/`DELETE` traffic) requires reading the capture
-directly in Wireshark, or extending those scripts yourself.
+`pcap_scanner.py` and `breakdown_packets_scanner.py` — both now recognize
+`GET`/`POST`/`PUT`/`DELETE` requests via the shared `pcap_parser.py` module.
+Note that `breakdown_packets_scanner.py` only analyzes the first 20 packets
+of each capture, so for full coverage of a scenario use `pcap_scanner.py`
+(unlimited packets, but IP/protocol only) or read the capture directly in
+Wireshark.
