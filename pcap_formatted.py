@@ -18,7 +18,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 # print(os.getenv("GEMINI_API_KEY"))
 
 # Initialize the Gemini model
-model = genai.GenerativeModel("gemini-pro")
+model = genai.GenerativeModel("gemini-3.6-flash")
 
 # Function to generate explanation for a given packet summary
 def generate_explanation(packet_summary):
@@ -112,8 +112,8 @@ def process_folder(input_folder, output_folder):
             print(f"Error processing file {input_file}: {e}")
 
 # Input and output folder paths
-input_folder_path = "/Users/alanharo/Documents/GitHub/PcapAnalyzer/pcap_file"
-output_folder_path = "/Users/alanharo/Documents/GitHub/PcapAnalyzer/Better_Outputs"
+input_folder_path = "pcap_file"
+output_folder_path = "Better_Outputs"
 
 # Create the output folder if it doesn't exist
 os.makedirs(output_folder_path, exist_ok=True)
